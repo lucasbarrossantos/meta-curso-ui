@@ -108,4 +108,14 @@ label {
     width: 280px;
 }
 
+.col-nome-tb-categoria {
+    text-align: center;
+}
+
+.col-nome-tb-codigo {
+    text-align: center;
+    width: 80px;
+}
+
+
 /* ==== */

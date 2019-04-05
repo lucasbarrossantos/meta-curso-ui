@@ -28,7 +28,8 @@ export class NavbarComponent implements OnInit {
         label: 'Financeiro',
         items: [
           { label: 'Títulos'},
-          { label: 'Estoque'}
+          { label: 'Estoque'},
+          { label: 'Categoria', routerLink: '/categorias'}
         ]
       },
       {
