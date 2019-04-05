@@ -1,6 +1,6 @@
 import { CategoriaService } from './../categoria.service';
 import { CategoriaFilter } from './../../shared/model/filtros/categoria.filter';
-import { Categoria } from './../../shared/categoria.model';
+import { Categoria } from '../../shared/model/categoria.model';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToastyService } from 'ng2-toasty';
@@ -29,7 +29,7 @@ export class CategoriaPesquisaComponent implements OnInit, OnDestroy {
     private errorHandle: ErrorHandleService,
     private title: Title
     ) {
-      EventEmitterService.get('CategoriaListModification').subscribe((data) => {
+      EventEmitterService.get('CategoriListModification').subscribe((data) => {
         this.grid.first = 0;
         this.pesquisar();
       });
@@ -37,7 +37,7 @@ export class CategoriaPesquisaComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.title.setTitle('Pesquisa de categoria');
-    this.sub = EventEmitterService.get('CategoriaListModification').subscribe( data => {} );
+    this.sub = EventEmitterService.get('CategoriListModification').subscribe( data => {} );
   }
 
   ngOnDestroy() {
@@ -70,15 +70,15 @@ export class CategoriaPesquisaComponent implements OnInit, OnDestroy {
     this.categoriaService.excluir(codigo).subscribe((response) => {
 
       this.toasty.success({
-        title: 'Exclusão de Pessoa',
-        msg: 'Pessoa excluída com sucesso!',
+        title: 'Exclusão de Categoria',
+        msg: 'Categoria excluída com sucesso!',
         showClose: true,
         timeout: 5000
       });
 
-      EventEmitterService.get('PessoasListModification').emit({
-        nome: 'PessoasListModification',
-        mensagem: 'Pessoa alterada.'
+      EventEmitterService.get('CategoriListModification').emit({
+        nome: 'CategoriListModification',
+        mensagem: 'Categoria alterada.'
       });
 
     },

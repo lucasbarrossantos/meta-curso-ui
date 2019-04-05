@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor(private toastyConfig: ToastyConfig, private router: Router) {
     this.toastyConfig.theme = 'bootstrap';
-    this.toastyConfig.position = 'center-center';
+    this.toastyConfig.position = 'top-right';
   }
 
 }
