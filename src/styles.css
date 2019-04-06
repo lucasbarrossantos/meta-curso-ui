@@ -82,7 +82,7 @@ label {
 }
 
 .col-acoes {
-    width: 90px;
+    width: 60px !important;
     text-align: center;
 }
 
@@ -117,5 +117,9 @@ label {
     width: 80px;
 }
 
+.col-codigo-tb-disciplina {
+    text-align: center;
+    width: 50px;
+}
 
 /* ==== */

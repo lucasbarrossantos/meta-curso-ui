@@ -1,0 +1,197 @@
+<div class="container-custom">
+  <p-card styleClass="ui-card-shadow">
+      <div class="ui-g">
+        <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+            <div class="ui-g-12 ui-fluid">
+                <h1> {{editando ? 'Edição de curso' : 'Novo curso'}}</h1>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label>Nome</label>
+                <input pInputText minlength="5" required
+                  ngModel name="nome" #nome="ngModel" [(ngModel)]="curso.nome"/>
+
+                  <app-message [control]="nome" error="required" 
+                    text="Informe o nome"></app-message>
+
+                  <app-message [control]="nome" error="minlength" 
+                    text="Mínimo de {{ nome?.errors?.minlength?.requiredLength }} caracteres.">
+                  </app-message>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Ativo</label>
+              <p-dropdown [options]="ativo" 
+                          placeholder="Selecione"
+                          [(ngModel)]="curso.status" name="status">
+              </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+              <label>Descrição</label>
+              <textarea pInputTextarea minlength="5" [rows]="5"
+                        autoResize="false"
+                        name="descricao"
+                        [(ngModel)]="curso.descricao">
+              </textarea>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+              <h3> Disciplinas</h3>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+              <h3> Materiais </h3>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+              <label>Selecione</label>
+              <p-dropdown [options]="disciplinasCombo" name="disciplina"
+                          [showClear]="true"
+                          name="disciplina" placeholder="Pesquisar disciplina" [filter]="true"
+                          optionLabel="label" 
+                          #disciplina="ngModel" ngModel
+                          (onChange)="adicionarDisciplina(disciplina)">
+              </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+              <label>Selecione</label>
+              <p-dropdown [options]="materiais" name="materiais"
+                          placeholder="Pesquisar material" [filter]="true"
+                          optionLabel="label">
+              </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-12">
+              <div class="ui-g-6 ui-md-6 ui-sm-12">
+                  <!-- [lazy]="true" : Busca os dados por demanda -->
+                  <!-- [totalRecords]="" : Total de registros que a consulta traz -->
+                  <!-- (onLazyLoad)="onMudarPagina()": Chamado sempre que clicar na navegacao da p. -->
+                  <p-table [value]="disciplinas" [responsive]="true"
+                            [rows]="4" [paginator]="true">
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th class="col-codigo-tb-disciplina">#</th>
+                              <th class="col-cidade">Nome</th>                                
+                              <th  class="col-acoes"></th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-disciplina>
+                          <tr>
+                              <td class="col-codigo-tb-disciplina">{{ disciplina.codigo }}</td>
+                              <td class="col-cidade">{{ disciplina.nome }}</td>
+                              <td class="col-acoes">
+                                  <a pButton icon="pi pi-pencil" pTooltip="Editar" 
+                                  tooltipPosition="top" 
+                                  [routerLink]="[ '/disciplinas', disciplina.codigo ]"
+                                  style="margin-right: 5px"></a>
+          
+                                  <a pButton icon="pi pi-trash" pTooltip="Excluir" 
+                                      (click)="confirmExclusao(disciplina.codigo)"
+                                      tooltipPosition="top">
+                                  </a>
+                              </td>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage" let-columns>
+                          <tr>
+                              <td [attr.colspan]="3">
+                                  Nenhum registro encontrado.
+                              </td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+          
+              </div>
+
+              <div class="ui-g-6">
+                  <!-- [lazy]="true" : Busca os dados por demanda -->
+                  <!-- [totalRecords]="" : Total de registros que a consulta traz -->
+                  <!-- (onLazyLoad)="onMudarPagina()": Chamado sempre que clicar na navegacao da p. -->
+                  <p-table [value]="curso.disciplinas" [responsive]="true"
+                            [rows]="4" [paginator]="true" #tabela>
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th class="col-codigo-tb-disciplina">#</th>
+                              <th class="col-cidade">Nome</th>                                
+                              <th  class="col-acoes"></th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-disciplina>
+                          <tr>
+                              <td class="col-codigo-tb-disciplina">{{ disciplina.codigo }}</td>
+                              <td class="col-cidade">{{ disciplina.disciplina.nome }}</td>
+                              <td class="col-acoes">
+                                  <a pButton icon="pi pi-pencil" pTooltip="Editar" 
+                                  tooltipPosition="top" 
+                                  [routerLink]="[ '/disciplinas', disciplina.codigo ]"
+                                  style="margin-right: 5px"></a>
+          
+                                  <button pButton icon="pi pi-trash" pTooltip="Excluir" 
+                                      tooltipPosition="top">
+                                  </button>
+                              </td>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage" let-columns>
+                          <tr>
+                              <td [attr.colspan]="3">
+                                  Nenhum registro encontrado.
+                              </td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+          
+              </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Total material</label>
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon">R$</span>
+                <input pInputText 
+                    currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+                    name="totalMaterial" [(ngModel)]="curso.total_material"/>
+              </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Taxa de matrícula</label>
+              <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">R$</span>
+                <input pInputText
+                  currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+                  name="taxaMatricula" [(ngModel)]="curso.taxa_matricula"/>
+              </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Valor do curso</label>
+              <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon">R$</span>
+                <input pInputText required
+                  currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+                  name="valorCurso" [(ngModel)]="curso.valorCurso"/>
+
+                <app-message [control]="nome" error="required" text="Informe o valor"></app-message>
+              </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+                <label>Observações</label>
+                <textarea pInputTextarea [rows]="6"
+                          autoResize="false"
+                          name="observacoes"
+                          [(ngModel)]="curso.observacoes">
+                </textarea>
+              </div>
+
+            <div class="ui-g-12">
+                <button pButton type="submit" label="Salvar" [disabled]="f.invalid" class="ui-button-success btn-margin"></button>
+                <button pButton type="submit" label="Voltar" routerLink="/cursos" class="ui-button-info"></button>
+            </div>
+        </form>
+  </div>
+</p-card>
+</div>

@@ -6,6 +6,9 @@ export const routes: Routes = [
   // Categorias
   { path: 'categorias', loadChildren: '../app/categoria/categoria.module#CategoriaModule' },
 
+  // Cursos
+  { path: 'cursos', loadChildren: '../app/curso/curso.module#CursoModule' },
+
   /* // Alternativas
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
   { path: '**', redirectTo: 'pagina-nao-encontrada' } */
