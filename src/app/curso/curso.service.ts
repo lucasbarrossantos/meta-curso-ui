@@ -47,6 +47,12 @@ export class CursoService {
       params: null, observe: 'response' }).pipe(map((res: any) => res.body ));
   }
 
+  adicionarMaterial(cursoId: number, materialId): Observable<any> {
+    return this.http
+    .post<Curso>(`${this.resourceUrl}/cursos/${cursoId}/adicionar-material/${materialId}`, null , {
+      params: null, observe: 'response' }).pipe(map((res: any) => res.body ));
+  }
+
   atualizar(curso: Curso): Observable<any> {
     return this.http
         .put<Curso>(`${this.resourceUrl}/cursos/${curso.codigo}`, curso,
@@ -62,6 +68,12 @@ export class CursoService {
   disciplinasDoCurso(id: number): Observable<any> {
     return this.http
       .get<Curso>(`${this.resourceUrl}/cursos/disciplinas-do-curso/${id}`,
+        {observe: 'response' }).pipe(map((res: any) => res));
+  }
+
+  materiaisDoCurso(id: number): Observable<any> {
+    return this.http
+      .get<Curso>(`${this.resourceUrl}/cursos/materiais-do-curso/${id}`,
         {observe: 'response' }).pipe(map((res: any) => res));
   }
 

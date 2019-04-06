@@ -57,9 +57,12 @@
 
             <div class="ui-g-12 ui-md-6 ui-fluid">
               <label>Selecione</label>
-              <p-dropdown [options]="materiais" name="materiais"
+              <p-dropdown [options]="materiaisCombo" name="material"
                           placeholder="Pesquisar material" [filter]="true"
-                          optionLabel="label">
+                          [showClear]="true"
+                          optionLabel="label"
+                          #material="ngModel" ngModel
+                          (onChange)="adicionarMaterial(material)">
               </p-dropdown>
             </div>
 
@@ -109,7 +112,7 @@
                   <!-- [lazy]="true" : Busca os dados por demanda -->
                   <!-- [totalRecords]="" : Total de registros que a consulta traz -->
                   <!-- (onLazyLoad)="onMudarPagina()": Chamado sempre que clicar na navegacao da p. -->
-                  <p-table [value]="curso.disciplinas" [responsive]="true"
+                  <p-table [value]="materiais" [responsive]="true"
                             [rows]="4" [paginator]="true" #tabela>
                       <ng-template pTemplate="header">
                           <tr>
@@ -118,14 +121,14 @@
                               <th  class="col-acoes"></th>
                           </tr>
                       </ng-template>
-                      <ng-template pTemplate="body" let-disciplina>
+                      <ng-template pTemplate="body" let-material>
                           <tr>
-                              <td class="col-codigo-tb-disciplina">{{ disciplina.codigo }}</td>
-                              <td class="col-cidade">{{ disciplina.disciplina.nome }}</td>
+                              <td class="col-codigo-tb-disciplina">{{ material.codigo }}</td>
+                              <td class="col-cidade">{{ material.nome }}</td>
                               <td class="col-acoes">
                                   <a pButton icon="pi pi-pencil" pTooltip="Editar" 
                                   tooltipPosition="top" 
-                                  [routerLink]="[ '/disciplinas', disciplina.codigo ]"
+                                  [routerLink]="[ '/materiais', material.codigo ]"
                                   style="margin-right: 5px"></a>
           
                                   <button pButton icon="pi pi-trash" pTooltip="Excluir" 

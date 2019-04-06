@@ -1,3 +1,6 @@
+import { MaterialService } from './../../material/material.service';
+import { Material } from './../../shared/model/material.model';
+import { DisciplinaService } from './../../disciplina/disciplina.service';
 import { CursoService } from './../curso.service';
 import { Curso } from '../../shared/model/curso.model';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
@@ -20,24 +23,21 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
   @ViewChild('dd') combo;
   curso = new Curso();
   disciplinas: Disciplina[];
+  materiais: Material[];
   private sub: any;
   ativo = [
     { label: 'Sim', value: 0 },
     { label: 'Não', value: 1 }
   ];
 
-  disciplinasCombo = [
-    {label: 'Biologia', value: 1},
-    {label: 'Física', value: 2},
-  ];
+  disciplinasCombo: Disciplina[];
 
-  materiais = [
-    {label: 'Bloco de anotações', value: 1},
-    {label: 'Camisa vértice', value: 2},
-  ];
+  materiaisCombo: Material[];
 
   constructor(
     private cursoService: CursoService,
+    private disciplinaService: DisciplinaService,
+    private materialService: MaterialService,
     private toasty: ToastyService,
     private errorHandle: ErrorHandleService,
     private confirmation: ConfirmationService,
@@ -52,11 +52,22 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.title.setTitle('Novo curso');
+
+    // Combos
+    this.disciplinaService.listarTodas().subscribe((dados) => {
+      this.disciplinasCombo = dados.body.map(d => ({ label: d.nome, value: d.codigo }));
+    });
+    this.materialService.listarTodas().subscribe((dados) => {
+      this.materiaisCombo = dados.body.map(m => ({ label: m.nome, value: m.codigo }));
+    });
+    // ...
+
     this.route.data.subscribe(({ curso }) => {
       this.curso = curso;
 
       if (curso.codigo) {
         this.buscarDisciplinasDoCurso(curso.codigo);
+        this.buscarMateriaisDoCurso(curso.codigo);
       }
     });
     this.sub = EventEmitterService.get('DisciplinaListModification').subscribe( data => {} );
@@ -98,8 +109,30 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
     if (item.viewModel) {
       this.cursoService.adicionarDisciplina(this.curso.codigo, item.viewModel.value)
       .subscribe((res) => {
+          this.toasty.success({
+            title: 'Disciplina adicionada com sucesso!',
+            showClose: true,
+            timeout: 5000
+          });
+
           this.router.navigate(['/cursos', this.curso.codigo]);
           this.buscarDisciplinasDoCurso(this.curso.codigo);
+        }, (error) => this.onError(error));
+    }
+  }
+
+  adicionarMaterial(item: any) {
+    if (item.viewModel) {
+      this.cursoService.adicionarMaterial(this.curso.codigo, item.viewModel.value)
+      .subscribe((res) => {
+          this.toasty.success({
+            title: 'Material adicionado com sucesso!',
+            showClose: true,
+            timeout: 5000
+          });
+
+          this.router.navigate(['/cursos', this.curso.codigo]);
+          this.buscarMateriaisDoCurso(this.curso.codigo);
         }, (error) => this.onError(error));
     }
   }
@@ -107,6 +140,12 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
   buscarDisciplinasDoCurso(codigo: number) {
     this.cursoService.disciplinasDoCurso(codigo).subscribe( (res) => {
       this.disciplinas = res.body;
+    });
+  }
+
+  buscarMateriaisDoCurso(codigo: number) {
+    this.cursoService.materiaisDoCurso(codigo).subscribe( (res) => {
+      this.materiais = res.body;
     });
   }
 
