@@ -35,6 +35,11 @@ export class CursoService {
     { observe: 'response' });
   }
 
+  excluirMaterial(cursoId: number, materialId: number) {
+    return this.http.delete<any>(`${this.resourceUrl}/cursos/${cursoId}/remover-material/${materialId}`,
+    { observe: 'response' });
+  }
+
   salvar(curso: Curso): Observable<any> {
     return this.http.post<Curso>(`${this.resourceUrl}/cursos`, curso , {
       params: null, observe: 'response' })

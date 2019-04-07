@@ -24,7 +24,8 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
   curso = new Curso();
   disciplinas: Disciplina[];
   materiais: Material[];
-  private sub: any;
+  private subDisc: any;
+  private subMate: any;
   ativo = [
     { label: 'Sim', value: 0 },
     { label: 'Não', value: 1 }
@@ -48,6 +49,10 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
     EventEmitterService.get('DisciplinaListModification').subscribe((data) => {
       this.buscarDisciplinasDoCurso(this.curso.codigo);
     });
+
+    EventEmitterService.get('MaterialListModification').subscribe((data) => {
+      this.buscarMateriaisDoCurso(this.curso.codigo);
+    });
   }
 
   ngOnInit() {
@@ -63,6 +68,7 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
     // ...
 
     this.route.data.subscribe(({ curso }) => {
+      console.log('curso >>> ', curso);
       this.curso = curso;
 
       if (curso.codigo) {
@@ -70,11 +76,13 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
         this.buscarMateriaisDoCurso(curso.codigo);
       }
     });
-    this.sub = EventEmitterService.get('DisciplinaListModification').subscribe( data => {} );
+    this.subDisc = EventEmitterService.get('DisciplinaListModification').subscribe( data => {} );
+    this.subMate = EventEmitterService.get('MaterialListModification').subscribe( data => {} );
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subDisc.unsubscribe();
+    this.subMate.unsubscribe();
   }
 
   get editando() {
@@ -82,7 +90,6 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
   }
 
   salvar(form: FormControl) {
-    console.log('form', form);
     if (this.editando) {
       this.atualizarCurso(form);
     } else {
@@ -101,7 +108,7 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
   atualizarCurso(form: FormControl) {
     this.cursoService.atualizar(this.curso).subscribe(( curso ) => {
       this.toasty.success('Curso atualizado com sucesso!');
-      this.router.navigate(['/cursos', curso.codigo]);
+      this.router.navigate(['/cursos/', 8]);
     }, (error) => this.errorHandle.handle(error));
   }
 
@@ -132,6 +139,11 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
           });
 
           this.router.navigate(['/cursos', this.curso.codigo]);
+
+          this.cursoService.buscarPorCodigo(this.curso.codigo).subscribe((data) => {
+            this.curso = data.body;
+          });
+
           this.buscarMateriaisDoCurso(this.curso.codigo);
         }, (error) => this.onError(error));
     }
@@ -144,12 +156,14 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
   }
 
   buscarMateriaisDoCurso(codigo: number) {
-    this.cursoService.materiaisDoCurso(codigo).subscribe( (res) => {
-      this.materiais = res.body;
-    });
+    if (codigo) {
+      this.cursoService.materiaisDoCurso(codigo).subscribe( (res) => {
+        this.materiais = res.body;
+      });
+    }
   }
 
-  excluir(codigo: any) {
+  excluirDisciplina(codigo: any) {
     this.cursoService.excluirDisciplina(this.curso.codigo, codigo).subscribe((response) => {
 
       this.toasty.success({
@@ -162,14 +176,33 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
         nome: 'DisciplinaListModification',
         mensagem: 'Disciplina alterada.'
       });
+    },
+    (response) => this.errorHandle.handle(response));
+  }
 
-      console.log('evento lancado');
+  excluirMaterial(codigo: any) {
+    this.cursoService.excluirMaterial(this.curso.codigo, codigo).subscribe((response) => {
+
+      this.toasty.success({
+        title: 'Material removido com sucesso!',
+        showClose: true,
+        timeout: 5000
+      });
+
+      EventEmitterService.get('MaterialListModification').emit({
+        nome: 'MaterialListModification',
+        mensagem: 'Disciplina alterada.'
+      });
+
+      this.cursoService.buscarPorCodigo(this.curso.codigo).subscribe((data) => {
+        this.curso = data.body;
+      });
 
     },
     (response) => this.errorHandle.handle(response));
   }
 
-  confirmExclusao(codigo: number) {
+  confirmExclusaoDisciplina(codigo: number) {
     this.confirmation.confirm({
         message: 'Deseja realmente excluir?',
         header: 'Confirmação de exclusão',
@@ -177,17 +210,26 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
         acceptLabel: 'Sim',
         rejectLabel: 'Não',
         accept: () => {
-            this.excluir(codigo);
+            this.excluirDisciplina(codigo);
+        }
+    });
+  }
+
+  confirmExclusaoMaterial(codigo: number) {
+    this.confirmation.confirm({
+        message: 'Deseja realmente excluir?',
+        header: 'Confirmação de exclusão',
+        icon: 'pi pi-question-circle',
+        acceptLabel: 'Sim',
+        rejectLabel: 'Não',
+        accept: () => {
+            this.excluirMaterial(codigo);
         }
     });
   }
 
   protected onError(errorMessage: any) {
-    this.toasty.error({
-      title: errorMessage.error[0].mensagemUsuario,
-      showClose: true,
-      timeout: 5000
-    });
+    this.toasty.error(errorMessage.error[0].mensagemUsuario);
   }
 
 }
