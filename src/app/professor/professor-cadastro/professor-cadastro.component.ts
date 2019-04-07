@@ -78,7 +78,7 @@ export class ProfessorCadastroComponent implements OnInit {
       this.toasty.success('Professor salva com sucesso!');
       form.reset();
       this.professor = new Professor();
-      this.router.navigate(['/professores', this.professor.codigo]);
+      this.router.navigate(['/professores']);
     }, (error) => this.errorHandle.handle(error.error[0].mensagemUsuario));
   }
 
@@ -88,7 +88,7 @@ export class ProfessorCadastroComponent implements OnInit {
       this.toasty.success('Professor atualizado com sucesso!');
       /* form.reset();
       this.professor = new Professor(); */
-      this.router.navigate(['/professores', this.professor.codigo]);
+      this.router.navigate(['/professores']);
     }, (error) => this.errorHandle.handle(error.error[0].mensagemUsuario));
   }
 

@@ -146,4 +146,18 @@ label {
     text-align: center;
 }
 
+.col-nome-tb-professor {
+    text-align: center;
+}
+
+.col-email-tb-professor {
+    text-align: center;
+    width: 240px;
+}
+
+.col-celular-tb-professor {
+    text-align: center;
+    width: 140px;
+}
+
 /* ==== */

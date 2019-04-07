@@ -1,0 +1,69 @@
+<div class="container-custom">
+    <p-card styleClass="ui-card-shadow">
+      <div class="ui-g">       
+          <form autocomplete="off" (ngSubmit)="pesquisar()" class="ui-g-12 ui-md-12">
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+                <h1>Professores</h1>
+            </div>
+  
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+              <label> Nome </label>
+              <input type="text" pInputText name="nome" [(ngModel)]="filtro.nome" />
+            </div>
+  
+            <div class="ui-g-12">
+                <button pButton type="submit" label="Pesquisar" class="ui-button-info"></button>
+                <a pButton label="Adicionar" routerLink="novo" class="ui-button-info" 
+                    style="float: right"> </a>
+            </div>
+         </form>
+  
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <p-table [value]="professores" [responsive]="true"
+                  [rows]="filtro.itensPorPagina" [paginator]="true"
+                  [lazy]="true" [totalRecords]="totalRegistros" 
+                  (onLazyLoad)="onMudarPagina($event)" #tabela>
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="col-nome-tb-codigo">#</th>
+                <th class="col-nome-tb-professor">Nome</th>
+                <th class="col-nome-tb-professor">Disc Atuação</th>
+                <th class="col-email-tb-professor">E-mail</th>
+                <th class="col-celular-tb-professor">Celular</th>
+                <th class="col-acoes">Ações</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-professor>
+              <tr>
+                <td class="col-nome-tb-codigo">{{ professor.codigo }}</td>
+                <td class="col-nome-tb-professor">{{ professor.nome }}</td>
+                <td class="col-nome-tb-professor">{{ professor.disciplinas_atuacao }}</td>
+                <td class="col-email-tb-professor">{{ professor.email }}</td>
+                <td class="col-celular-tb-professor">{{ professor.celular }}</td>
+              
+                <td class="col-acoes">
+                  <a pButton icon="pi pi-pencil" pTooltip="Editar"
+                    [routerLink]="[ '/professores', professor.codigo ]"
+                    tooltipPosition="top" style="margin-right: 5px">
+                  </a>
+                  <button pButton icon="pi pi-trash" class="ui-button-danger"
+                          (click)="confirmExclusao(professor.codigo, professor.nome)"
+                          pTooltip="Excluir" tooltipPosition="top">
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="6">
+                        Nenhum registro encontrado.
+                    </td>
+                </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+    </p-card>
+  </div>

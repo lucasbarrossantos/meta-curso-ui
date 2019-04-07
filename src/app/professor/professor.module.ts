@@ -15,9 +15,11 @@ import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { DropdownModule } from 'primeng/components/dropdown/dropdown';
 import { AccordionModule } from 'primeng/components/accordion/accordion';
 import { SharedModule } from '../shared/shared.module';
+import { ChipsModule } from 'primeng/components/chips/chips';
+import { ProfessorPesquisaComponent } from './professor-pesquisa/professor-pesquisa.component';
 
 @NgModule({
-  declarations: [ProfessorCadastroComponent],
+  declarations: [ProfessorCadastroComponent, ProfessorPesquisaComponent],
   imports: [
     CommonModule,
     ProfessorRoutingModule,
@@ -32,6 +34,7 @@ import { SharedModule } from '../shared/shared.module';
     InputTextareaModule,
     DropdownModule,
     AccordionModule,
+    ChipsModule,
     SharedModule
   ]
 })
