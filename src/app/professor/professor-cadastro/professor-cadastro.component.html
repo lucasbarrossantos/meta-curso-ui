@@ -1,0 +1,268 @@
+<div class="container-custom">
+  <p-card styleClass="ui-card-shadow">
+      <div class="ui-g">
+        <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)" class="ui-g-12 ui-md-12">
+            <div class="ui-g-12">
+                <h1> {{editando ? 'Edição de professor' : 'Novo professor'}}</h1>
+            </div>
+
+            <h3> Dados básicos </h3>
+
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label>Nome</label> <span style="color: brown; margin-left: 3.5px;">*</span>
+                <input pInputText minlength="5" required
+                  ngModel #nome="ngModel" name="nome" [(ngModel)]="professor.nome"/>
+
+                  <app-message [control]="nome" error="required" 
+                    text="Informe o nome"></app-message>
+
+                  <app-message [control]="nome" error="minlength" 
+                    text="Mínimo de {{ nome?.errors?.minlength?.requiredLength }} caracteres.">
+                  </app-message>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>CPF</label> <span style="color: brown; margin-left: 3.5px;">*</span>
+              <p-inputMask required mask="999.999.999-99"
+                ngModel name="cpf" #cpf="ngModel" [(ngModel)]="professor.cpf">
+
+                <app-message [control]="cpf" error="required" 
+                  text="Informe o cpf."></app-message>
+              </p-inputMask>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Nascimento</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                <p-calendar [showIcon]="true" required [locale]="pt"
+                    [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"
+                    name="datanascimento" [(ngModel)]="professor.datanascimento" 
+                    #datanascimento="ngModel" ngModel
+                    dateFormat="dd/mm/yy">
+                </p-calendar>
+              <app-message [control]="datanascimento" error="required" 
+                text="Informe uma data de nascimento"></app-message>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Estado civil</label>
+              <p-dropdown [options]="estadoCivil" 
+                          placeholder="Selecione"
+                          [(ngModel)]="professor.estado_civil" name="status">
+              </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-3 ui-fluid">
+              <label>Nº RG</label>
+              <input pInputText
+                     [(ngModel)]="professor.rg" name="rg"/>
+            </div>
+
+            <div class="ui-g-12 ui-md-3 ui-fluid">
+              <label>Orgão Expedidor</label>
+              <input pInputText
+                     [(ngModel)]="professor.orgao_expedidor_rg" name="orgao_expedidor_rg"/>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>UF</label>
+              <p-dropdown [options]="ufs"
+                          placeholder="Selecione" [filter]="true"
+                          [(ngModel)]="professor.uf_rg" name="uf_rg">
+              </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Titulo eleitoral</label>
+              <input pInputText
+                     [(ngModel)]="professor.titulo_eleitor" name="titulo_eleitor"/>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>PIS / Cartão cidadão</label>
+              <input pInputText
+                     [(ngModel)]="professor.pis_cartao_cidadao" name="pis_cartao_cidadao"/>
+            </div>
+
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+                <p-accordion [multiple]="true">
+                    <p-accordionTab header="Dados do endereço" [selected]="true">
+                        <div class="ui-g-12 ui-md-3 ui-fluid" 
+                             style="margin-left: 0%;margin-right: 83.33333333% !important;">
+                            <label>CEP</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                            <p-inputMask mask="99999-999" required
+                                   ngModel #cep="ngModel"
+                                   [(ngModel)]="professor.cep" 
+                                   name="cep">
+                                   <app-message [control]="cep" error="required" 
+                                         text="Informe o cep"></app-message>
+                            </p-inputMask>
+                        </div>                        
+                        
+                        <div class="ui-g-12 ui-md-3 ui-fluid">
+                              <label>Endereço</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                              <input pInputText required
+                                      ngModel #endereco="ngModel"
+                                      [(ngModel)]="professor.endereco" name="endereco"/>
+                                      <app-message [control]="endereco" error="required" 
+                                      text="Informe o endereço"></app-message>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-3 ui-fluid">
+                            <label>Bairro</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                            <input pInputText required
+                                   ngModel #bairro="ngModel"
+                                   [(ngModel)]="professor.bairro" name="bairro"/>
+                                   <app-message [control]="bairro" error="required" 
+                                      text="Informe o bairro"></app-message>
+                                    
+                        </div>
+
+                        <div class="ui-g-12 ui-md-3 ui-fluid">
+                            <label>Cidade</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                            <input pInputText required
+                                   ngModel #cidade="ngModel"
+                                   [(ngModel)]="professor.cidade" name="cidade"/>
+                              <app-message [control]="cidade" error="required" 
+                                              text="Informe a cidade"></app-message>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-1 ui-fluid">
+                            <label>UF</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                            <p-dropdown [options]="ufs"
+                                        placeholder="Selecione" [filter]="true"
+                                        [(ngModel)]="professor.uf" name="uf">
+                            </p-dropdown>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-2 ui-fluid">
+                            <label>Número</label>
+                            <input pInputText
+                                    [(ngModel)]="professor.numero" name="numero"/>
+                        </div>
+
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+
+
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+                <p-accordion [multiple]="true">
+                    <p-accordionTab header="Dados de contato" [selected]="true">
+                        <div class="ui-g-12 ui-md-3 ui-fluid" 
+                             style="margin-left: 0%;margin-right: 83.33333333% !important;">
+                            <label>E-mail</label>
+                            <input pInputText
+                                   [(ngModel)]="professor.email" 
+                                   name="email"/>
+                        </div>                        
+                        
+                        <div class="ui-g-12 ui-md-3 ui-fluid">
+                              <label>Celular</label> <span style="color: brown; margin-left: 3.5px;">*</span>
+                              <p-inputMask mask="(99)9 9999-9999" required
+                                           ngModel #celular="ngModel"
+                                           [(ngModel)]="professor.celular" name="celular">
+                                           <app-message [control]="celular" error="required" 
+                                                   text="Informe o celular"></app-message>
+                              </p-inputMask>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-3 ui-fluid">
+                            <label>Telefone</label>
+                            <p-inputMask mask="(99) 9999-9999"
+                                    [(ngModel)]="professor.telefone" name="telefone">
+                            </p-inputMask>
+                        </div>
+
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+                <p-accordion [multiple]="true">
+                    <p-accordionTab header="Outras informações">
+                        <div class="ui-g-12 ui-md-12 ui-fluid" 
+                             style="margin-left: 0%;margin-right: 83.33333333% !important;">
+                            <label>Disciplinas de atuação</label>
+                            <textarea pInputTextarea [rows]="5"
+                                   [(ngModel)]="professor.disciplinas_atuacao" 
+                                   name="disciplinas_atuacao">
+                            </textarea>
+                        </div>   
+                        
+                        <div class="ui-g-12 ui-md-4 ui-fluid">
+                            <label>Escolaridade</label>
+                            <input pInputText
+                                    [(ngModel)]="professor.escolaridade" name="escolaridade"/>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-4 ui-fluid">
+                            <label>Nº de filhos de 0 a 7 anos</label>
+                            <input pInputText
+                                    [(ngModel)]="professor.filhos_zero_sete" name="filhos_zero_sete"/>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-4 ui-fluid">
+                            <label>Nº de filhos de 7 a 13 anos</label>
+                            <input pInputText style="resize: none;"
+                                    [(ngModel)]="professor.filhos_sete_treze" name="filhos_sete_treze"/>
+                        </div>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+                <p-accordion [multiple]="true">
+                    <p-accordionTab header="Informações bancárias">
+                        <div class="ui-g-12 ui-md-6 ui-fluid">
+                            <label>Banco</label>
+                            <input pInputText
+                                   [(ngModel)]="professor.nome_banco" 
+                                   name="nome_banco"/>
+
+                        </div>   
+                        
+                        <div class="ui-g-12 ui-md-2 ui-fluid">
+                            <label>Agência</label>
+                            <input pInputText
+                                    [(ngModel)]="professor.agencia" name="agencia"/>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-2 ui-fluid">
+                            <label>Conta</label>
+                            <input pInputText
+                                    [(ngModel)]="professor.conta" name="conta"/>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-2 ui-fluid">
+                            <label>Operação</label>
+                            <input pInputText
+                                    [(ngModel)]="professor.operacao" name="operacao"/>
+                        </div>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+                <p-accordion [multiple]="true">
+                    <p-accordionTab header="Formas de contratação">
+                        <div class="ui-g-12 ui-md-12 ui-fluid">
+                            <label>Formas de contratação e disponibilidade para aulas</label>
+                            <textarea pInputTextarea [rows]="7" style="resize: none;"
+                                   [(ngModel)]="professor.forma_contratacao" 
+                                   name="forma_contratacao">
+                            </textarea>
+                        </div>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+
+            <div class="ui-g-12">
+                <button pButton type="submit" label="Salvar" [disabled]="f.invalid" 
+                        class="ui-button-success btn-margin"></button>
+                <button pButton type="submit" label="Voltar" 
+                        routerLink="/professores" class="ui-button-info"></button>
+            </div>
+        </form>
+  </div>
+</p-card>
+</div>

@@ -7,7 +7,7 @@
             </div>
 
             <div class="ui-g-12 ui-md-6 ui-fluid">
-                <label>Nome</label>
+                <label>Nome</label><span style="color: brown; margin-left: 3.5px;">*</span>
                 <input pInputText minlength="5" required
                   ngModel name="nome" #nome="ngModel" [(ngModel)]="curso.nome"/>
 
@@ -20,8 +20,8 @@
             </div>
 
             <div class="ui-g-12 ui-md-2 ui-fluid">
-              <label>Ativo</label>
-              <p-dropdown [options]="ativo" 
+              <label>Ativo</label><span style="color: brown; margin-left: 3.5px;">*</span>
+              <p-dropdown [options]="ativo" required
                           placeholder="Selecione"
                           [(ngModel)]="curso.status" name="status">
               </p-dropdown>
@@ -29,7 +29,7 @@
 
             <div class="ui-g-12 ui-md-12 ui-fluid">
               <label>Descrição</label>
-              <textarea pInputTextarea minlength="5" [rows]="5"
+              <textarea pInputTextarea [rows]="5"
                         autoResize="false"
                         name="descricao"
                         [(ngModel)]="curso.descricao">
@@ -175,7 +175,7 @@
             </div>
 
             <div class="ui-g-12 ui-md-2 ui-fluid">
-              <label>Valor do curso</label>
+              <label>Valor do curso</label><span style="color: brown; margin-left: 3.5px;">*</span>
               <div class="ui-inputgroup">
                   <span class="ui-inputgroup-addon">R$</span>
                 <input pInputText required

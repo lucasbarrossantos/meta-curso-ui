@@ -9,6 +9,9 @@ export const routes: Routes = [
   // Cursos
   { path: 'cursos', loadChildren: '../app/curso/curso.module#CursoModule' },
 
+  // Cursos
+  { path: 'professores', loadChildren: '../app/professor/professor.module#ProfessorModule' },
+
   /* // Alternativas
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
   { path: '**', redirectTo: 'pagina-nao-encontrada' } */
