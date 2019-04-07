@@ -19,7 +19,7 @@ export class CursoService {
     param = this.filtros(filtro, param);
 
     return this.http
-      .get<Curso[]>(`${this.resourceUrl}/cursos`, { params: param, observe: 'response' })
+      .get<Curso[]>(`${this.resourceUrl}/cursos?resumo`, { params: param, observe: 'response' })
       .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
   }
 
@@ -90,6 +90,14 @@ export class CursoService {
     // Parametros de filtragens
     if (filtro.nome) {
       param = param.set('nome', filtro.nome);
+    }
+
+    if (filtro.descricao) {
+      param = param.set('descricao', filtro.descricao);
+    }
+
+    if (filtro.status) {
+      param = param.set('status', filtro.status);
     }
 
     return param;

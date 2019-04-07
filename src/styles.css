@@ -61,7 +61,7 @@ label {
 .badge {
     display: inline-block;
     padding: .25em .4em;
-    font-size: 75%;
+    font-size: 100%;
     font-weight: 700;
     line-height: 1;
     text-align: center;
@@ -82,7 +82,12 @@ label {
 }
 
 .col-acoes {
-    width: 60px !important;
+    width: 90px !important;
+    text-align: center;
+}
+
+.col-acoes-curo-edit {
+    width: 56px !important;
     text-align: center;
 }
 
@@ -119,7 +124,26 @@ label {
 
 .col-codigo-tb-disciplina {
     text-align: center;
-    width: 50px;
+    width: 30px;
+}
+
+.col-nome-tb-cursos {
+    text-align: center;
+    width: 299px;
+}
+
+.col-txs-tb-cursos {
+    text-align: right;
+    width: 130px;
+}
+
+.col-status-tb-cursos {
+    text-align: center;
+    width: 90px;
+}
+
+.col-descricao-tb-cursos {
+    text-align: center;
 }
 
 /* ==== */

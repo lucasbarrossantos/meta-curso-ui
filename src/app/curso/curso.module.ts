@@ -12,10 +12,11 @@ import { InputTextareaModule } from 'primeng/components/inputtextarea/inputtexta
 import { DropdownModule } from 'primeng/components/dropdown/dropdown';
 import { SharedModule } from '../shared/shared.module';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { CursoPesquisaComponent } from './curso-pesquisa/curso-pesquisa.component';
 
 
 @NgModule({
-  declarations: [CursoCadastroComponent],
+  declarations: [CursoCadastroComponent, CursoPesquisaComponent],
   imports: [
     CommonModule,
     CursoRoutingModule,

@@ -108,7 +108,7 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
   atualizarCurso(form: FormControl) {
     this.cursoService.atualizar(this.curso).subscribe(( curso ) => {
       this.toasty.success('Curso atualizado com sucesso!');
-      this.router.navigate(['/cursos/', 8]);
+      this.router.navigate(['/cursos/', curso.codigo]);
     }, (error) => this.errorHandle.handle(error));
   }
 

@@ -1,0 +1,98 @@
+<div class="container-custom">
+
+  <p-card styleClass="ui-card-shadow">
+      <div class="ui-g">
+          <form autocomplete="off" (ngSubmit)="pesquisar()" class="ui-g-12 ui-md-12">
+              <div class="ui-g-12 ui-md-12 ui-fluid">
+                  <h1>Cursos</h1>
+              </div>
+          
+              <div class="ui-g-12 ui-md-6 ui-fluid">
+                  <label> Nome </label>
+                  <input type="text" pInputText placeholder="Pesquisa por nome."
+                  name="nome" [(ngModel)]="filtro.nome"/>
+              </div>
+
+              <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label> Descrição </label>
+                <input type="text" pInputText placeholder="Pesquisa por descrição."
+                name="descricao" [(ngModel)]="filtro.descricao"/>
+              </div>
+
+              <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label>Ativo</label>
+                <p-dropdown [options]="ativo" 
+                            placeholder="Selecione"
+                            [(ngModel)]="filtro.status" name="status">
+                </p-dropdown>
+              </div>
+          
+              <div class="ui-g-12">
+                  <button pButton type="submit" label="Pesquisar" class="ui-button-info"></button>
+                  <a pButton label="Adicionar" routerLink="novo" class="ui-button-info" 
+                      style="float: right"> </a>
+              </div>
+          </form>
+          
+          <div class="ui-g">
+              <div class="ui-g-12">
+                  <!-- [lazy]="true" : Busca os dados por demanda -->
+                  <!-- [totalRecords]="" : Total de registros que a consulta traz -->
+                  <!-- (onLazyLoad)="onMudarPagina()": Chamado sempre que clicar na navegacao da p. -->
+                  <p-table [value]="cursos" [responsive]="true"
+                           [rows]="filtro.itensPorPagina" [paginator]="true"
+                           [lazy]="true" [totalRecords]="totalRegistros"
+                           (onLazyLoad)="onMudarPagina($event)" #tabela>
+                      <ng-template pTemplate="header">
+                          <tr>
+                              <th class="col-nome-tb-cursos">Nome</th>
+                              <th class="col-descricao-tb-cursos">Descrição</th>
+                              <th class="col-txs-tb-cursos">Txa matrícula</th>
+                              <th class="col-txs-tb-cursos">Txa material</th>
+                              <th class="col-txs-tb-cursos">Valor</th>
+                              <th class="col-status-tb-cursos">Status</th>
+                              <th class="col-acoes"></th>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-curso>
+                          <tr>
+                              <td class="col-nome-tb-cursos">{{ curso.nome }}</td>
+                              <td class="col-descricao-tb-cursos">{{ curso.descricao }}</td>
+                              <td class="col-txs-tb-cursos">{{ curso.taxa_matricula | currency:'BRL':true }}</td>
+                              <td class="col-txs-tb-cursos">{{ curso.total_material | currency:'BRL':true }}</td>
+                              <td class="col-txs-tb-cursos">{{ curso.valorCurso | currency:'BRL':true }}</td>
+                              <td class="col-status-tb-cursos">
+                                  <samp [ngClass]="curso.status == 0 ? 'badge badge-success' : 'badge badge-danger'">
+                                      {{ curso.status == 0 ? 'Ativo' : 'Inativo' }}
+                                  </samp>
+                              </td>
+                              
+                              <td class="col-acoes">
+                                  <a pButton icon="pi pi-pencil" pTooltip="Editar" 
+                                  tooltipPosition="top" 
+                                  [routerLink]="[ '/cursos', curso.codigo ]"
+                                  style="margin-right: 5px"></a>
+          
+                                  <button pButton icon="pi pi-trash" pTooltip="Excluir" 
+                                      tooltipPosition="top"
+                                      (click)="confirmExclusao(curso.codigo)">
+                                  </button>
+                              </td>
+                          </tr>
+                      </ng-template>
+                      <ng-template pTemplate="emptymessage" let-columns>
+                          <tr>
+                              <td [attr.colspan]="7">
+                                  Nenhum registro encontrado.
+                              </td>
+                          </tr>
+                      </ng-template>
+                  </p-table>
+          
+              </div>
+          
+      </div>
+  </div>
+</p-card>           
+
+</div>

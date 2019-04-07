@@ -6,6 +6,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Routes, ActivatedRouteSnapshot, Resolve, RouterModule } from '@angular/router';
 import { Injectable, NgModule } from '@angular/core';
 import { Curso } from '../shared/model/curso.model';
+import { CursoPesquisaComponent } from './curso-pesquisa/curso-pesquisa.component';
 
 @Injectable({ providedIn: 'root' })
 export class CursoResolve implements Resolve<Curso> {
@@ -26,7 +27,7 @@ export class CursoResolve implements Resolve<Curso> {
 export const routes: Routes = [
     {
         path: '',
-        // component: CursoPesquisaComponent,
+        component: CursoPesquisaComponent,
     },
     {
       path: 'novo',

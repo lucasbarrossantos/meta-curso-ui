@@ -79,14 +79,14 @@
                             <tr>
                                 <th class="col-codigo-tb-disciplina">#</th>
                                 <th class="col-cidade">Nome</th>                                
-                                <th  class="col-acoes"></th>
+                                <th  class="col-acoes-curo-edit"></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-disciplina>
                             <tr>
                                 <td class="col-codigo-tb-disciplina">{{ disciplina.codigo }}</td>
                                 <td class="col-cidade">{{ disciplina.nome }}</td>
-                                <td class="col-acoes">
+                                <td class="col-acoes-curo-edit">
                                     <a pButton icon="pi pi-pencil" pTooltip="Editar" 
                                     tooltipPosition="top" 
                                     [routerLink]="[ '/disciplinas', disciplina.codigo ]"
@@ -110,7 +110,7 @@
             
                 </div>
   
-                <div class="ui-g-6">
+                <div class="ui-g-6 ui-md-6 ui-sm-12">
                     <!-- [lazy]="true" : Busca os dados por demanda -->
                     <!-- [totalRecords]="" : Total de registros que a consulta traz -->
                     <!-- (onLazyLoad)="onMudarPagina()": Chamado sempre que clicar na navegacao da p. -->
@@ -120,14 +120,14 @@
                             <tr>
                                 <th class="col-codigo-tb-disciplina">#</th>
                                 <th class="col-cidade">Nome</th>                                
-                                <th  class="col-acoes"></th>
+                                <th  class="col-acoes-curo-edit"></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-material>
                             <tr>
                                 <td class="col-codigo-tb-disciplina">{{ material.codigo }}</td>
                                 <td class="col-cidade">{{ material.nome }}</td>
-                                <td class="col-acoes">
+                                <td class="col-acoes-curo-edit">
                                     <a pButton icon="pi pi-pencil" pTooltip="Editar" 
                                     tooltipPosition="top" 
                                     [routerLink]="[ '/materiais', material.codigo ]"

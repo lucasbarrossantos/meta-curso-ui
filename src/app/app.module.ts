@@ -1,6 +1,9 @@
+import { LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { registerLocaleData, CommonModule } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +17,8 @@ import { CoreModule } from './shared/core/core.module';
 import { ConfirmationService } from 'primeng/components/common/api';
 import { EventEmitterService } from './shared/utils/event.manager';
 
+registerLocaleData(localePt, 'pt');
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +27,7 @@ import { EventEmitterService } from './shared/utils/event.manager';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
     AppRoutingModule,
     CoreModule,
     HttpClientModule,
@@ -31,6 +37,7 @@ import { EventEmitterService } from './shared/utils/event.manager';
     ButtonModule
   ],
   providers: [
+    {provide: LOCALE_ID, useValue: 'pt' },
     ConfirmationService,
     EventEmitterService
   ],
