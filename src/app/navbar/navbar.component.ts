@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
           { label: 'Interessados(Eventos)' },
           { label: 'Matrículas' },
           { label: 'Frequências' },
-          { label: 'Alunos' },
+          { label: 'Alunos', routerLink: '/alunos' },
           { label: 'Categoria', routerLink: '/categorias'},
           { label: 'Cursos', routerLink: '/cursos'}
         ]

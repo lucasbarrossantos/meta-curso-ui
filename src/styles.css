@@ -92,8 +92,8 @@ label {
 }
 
 .container-custom {
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 7px;
+    padding-left: 7px;
     margin-right: auto;
     margin-left: auto;
 }
@@ -160,4 +160,27 @@ label {
     width: 140px;
 }
 
+.col-codigo-tb-aluno {
+    text-align: center;
+    width: 80px;
+}
+
+.col-cpf-tb-aluno {
+    text-align: center;
+    width: 130px;
+}
+
+.col-email-tb-aluno {
+    text-align: center;
+}
+
+.col-celular-tb-aluno {
+    text-align: center;
+    width: 150px;
+}
+
 /* ==== */
+
+.navbar {
+    
+}

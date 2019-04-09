@@ -9,8 +9,11 @@ export const routes: Routes = [
   // Cursos
   { path: 'cursos', loadChildren: '../app/curso/curso.module#CursoModule' },
 
-  // Cursos
+  // Professores
   { path: 'professores', loadChildren: '../app/professor/professor.module#ProfessorModule' },
+
+  // Alunos
+  { path: 'alunos', loadChildren: '../app/aluno/aluno.module#AlunoModule' },
 
   /* // Alternativas
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },

@@ -41,7 +41,7 @@
                   [routerLink]="[ '/categorias', categoria.codigo ]"
                   tooltipPosition="top" style="margin-right: 5px">
                 </a>
-                <button pButton icon="pi pi-trash"
+                <button pButton icon="pi pi-trash" class="ui-button-danger"
                         (click)="confirmExclusao(categoria.codigo, categoria.nome)"
                         pTooltip="Excluir" tooltipPosition="top">
                 </button>

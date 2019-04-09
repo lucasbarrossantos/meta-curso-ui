@@ -1,0 +1,245 @@
+<div class="container-custom">
+    <p-card styleClass="ui-card-shadow">
+        <div class="ui-g">
+          <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)" class="ui-g-12 ui-md-12">
+              <div class="ui-g-12">
+                  <h1> {{editando ? 'Edição de aluno' : 'Novo aluno'}}</h1>
+              </div>
+  
+              <h3> Dados básicos </h3>
+  
+              <div class="ui-g-12 ui-md-6 ui-fluid">
+                  <label>Nome</label> <span style="color: brown; margin-left: 3.5px;">*</span>
+                  <input pInputText minlength="5" required
+                    ngModel #nome="ngModel" name="nome" [(ngModel)]="aluno.nome"/>
+  
+                    <app-message [control]="nome" error="required" 
+                      text="Informe o nome"></app-message>
+  
+                    <app-message [control]="nome" error="minlength" 
+                      text="Mínimo de {{ nome?.errors?.minlength?.requiredLength }} caracteres.">
+                    </app-message>
+              </div>
+  
+              <div class="ui-g-12 ui-md-2 ui-fluid">
+                <label>CPF</label> <span style="color: brown; margin-left: 3.5px;">*</span>
+                <p-inputMask required mask="999.999.999-99"
+                  ngModel name="cpf" #cpf="ngModel" [(ngModel)]="aluno.cpf">
+  
+                  <app-message [control]="cpf" error="required" 
+                    text="Informe o cpf."></app-message>
+                </p-inputMask>
+              </div>
+  
+              <div class="ui-g-12 ui-md-2 ui-fluid">
+                <label>Nascimento</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                  <p-calendar [showIcon]="true" required [locale]="pt"
+                      [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"
+                      name="datanascimento" [(ngModel)]="aluno.datanascimento" 
+                      #datanascimento="ngModel" ngModel
+                      dateFormat="dd/mm/yy">
+                  </p-calendar>
+                <app-message [control]="datanascimento" error="required" 
+                  text="Informe uma data de nascimento"></app-message>
+              </div>
+  
+              <div class="ui-g-12 ui-md-2 ui-fluid">
+                <label>Gênero</label>
+                <p-dropdown [options]="generos" 
+                            placeholder="Selecione"
+                            [(ngModel)]="aluno.genero" name="genero">
+                </p-dropdown>
+              </div>
+  
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                <label>Nº RG</label>
+                <input pInputText
+                       [(ngModel)]="aluno.rg" name="rg"/>
+              </div>
+  
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                <label>Orgão Expedidor</label>
+                <input pInputText
+                       [(ngModel)]="aluno.orgao_expedidor_rg" name="orgao_expedidor_rg"/>
+              </div>
+  
+              <div class="ui-g-12 ui-md-2 ui-fluid">
+                <label>UF</label>
+                <p-dropdown [options]="ufs"
+                            placeholder="Selecione" [filter]="true"
+                            [(ngModel)]="aluno.uf_rg" name="uf_rg">
+                </p-dropdown>
+              </div>
+  
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                  <label> Receber notificações </label>
+                  <p-checkbox [(ngModel)]="aluno.receberNotificacoes" 
+                              name="receberNotificacoes" binary="true">
+                  </p-checkbox>
+              </div>
+  
+              <div class="ui-g-12 ui-md-12 ui-fluid">
+                  <p-accordion [multiple]="true">
+                      <p-accordionTab header="Dados do endereço" [selected]="true">
+                          <div class="ui-g-12 ui-md-3 ui-fluid" 
+                               style="margin-left: 0%;margin-right: 83.33333333% !important;">
+                              <label>CEP</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                              <p-inputMask mask="99999-999" required
+                                     ngModel #cep="ngModel"
+                                     [(ngModel)]="aluno.cep" 
+                                     name="cep">
+                                     <app-message [control]="cep" error="required" 
+                                           text="Informe o cep"></app-message>
+                              </p-inputMask>
+                          </div>                        
+                          
+                          <div class="ui-g-12 ui-md-3 ui-fluid">
+                                <label>Endereço</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                                <input pInputText required
+                                        ngModel #endereco="ngModel"
+                                        [(ngModel)]="aluno.endereco" name="endereco"/>
+                                        <app-message [control]="endereco" error="required" 
+                                        text="Informe o endereço"></app-message>
+                          </div>
+  
+                          <div class="ui-g-12 ui-md-3 ui-fluid">
+                              <label>Bairro</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                              <input pInputText required
+                                     ngModel #bairro="ngModel"
+                                     [(ngModel)]="aluno.bairro" name="bairro"/>
+                                     <app-message [control]="bairro" error="required" 
+                                        text="Informe o bairro"></app-message>
+                                      
+                          </div>
+  
+                          <div class="ui-g-12 ui-md-3 ui-fluid">
+                              <label>Cidade</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                              <input pInputText required
+                                     ngModel #cidade="ngModel"
+                                     [(ngModel)]="aluno.cidade" name="cidade"/>
+                                <app-message [control]="cidade" error="required" 
+                                                text="Informe a cidade"></app-message>
+                          </div>
+  
+                          <div class="ui-g-12 ui-md-1 ui-fluid">
+                              <label>UF</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                              <p-dropdown [options]="ufs"
+                                          placeholder="Selecione" [filter]="true"
+                                          [(ngModel)]="aluno.uf" name="uf">
+                              </p-dropdown>
+                          </div>
+  
+                          <div class="ui-g-12 ui-md-2 ui-fluid">
+                              <label>Número</label>
+                              <input pInputText
+                                      [(ngModel)]="aluno.numero" name="numero"/>
+                          </div>  
+                      </p-accordionTab>
+                  </p-accordion>
+              </div>
+  
+  
+              <div class="ui-g-12 ui-md-12 ui-fluid">
+                  <p-accordion [multiple]="true">
+                      <p-accordionTab header="Dados de contato" [selected]="true">
+                          <div class="ui-g-12 ui-md-3 ui-fluid" 
+                               style="margin-left: 0%;margin-right: 83.33333333% !important;">
+                              <label>E-mail</label>
+                              <input pInputText
+                                     [(ngModel)]="aluno.email" 
+                                     name="email"/>
+                          </div>                        
+                          
+                          <div class="ui-g-12 ui-md-3 ui-fluid">
+                                <label>Celular</label> <span style="color: brown; margin-left: 3.5px;">*</span>
+                                <p-inputMask mask="(99)9 9999-9999" required
+                                             ngModel #celular="ngModel"
+                                             [(ngModel)]="aluno.celular" name="celular">
+                                             <app-message [control]="celular" error="required" 
+                                                     text="Informe o celular"></app-message>
+                                </p-inputMask>
+                          </div>
+  
+                          <div class="ui-g-12 ui-md-3 ui-fluid">
+                              <label>Telefone</label>
+                              <p-inputMask mask="(99) 9999-9999"
+                                      [(ngModel)]="aluno.telefone" name="telefone">
+                              </p-inputMask>
+                          </div>
+
+                          <div class="ui-g-12 ui-md-3 ui-fluid">
+                              <label> Possui responsável </label>
+                              <p-checkbox [(ngModel)]="aluno.possui_responsavel" 
+                                          name="possui_responsavel" binary="true">
+                              </p-checkbox>
+                          </div>
+  
+                      </p-accordionTab>
+                  </p-accordion>
+              </div>
+
+              <div class="ui-g-12 ui-md-12 ui-fluid">
+                  <p-accordion [multiple]="true">
+                      <p-accordionTab header="Dados do responsável" [selected]="aluno.possui_responsavel">
+                          <div class="ui-g-12 ui-md-4 ui-fluid" 
+                               style="margin-left: 0%;margin-right: 83.33333333% !important;">
+                              <label>Nome</label><span style="color: brown; margin-left: 3.5px;" [hidden]="!aluno.possui_responsavel">*</span>
+                              <input pInputText [required]="aluno.possui_responsavel"
+                                     [(ngModel)]="aluno.nome_responsavel" 
+                                     name="nome_responsavel"/>
+                          </div>                        
+                          
+                          <div class="ui-g-12 ui-md-2 ui-fluid">
+                                <label>CPF</label> <span style="color: brown; margin-left: 3.5px;" [hidden]="!aluno.possui_responsavel">*</span>
+                                <p-inputMask mask="999.999.999-99" [required]="aluno.possui_responsavel"
+                                             ngModel #celular="ngModel"
+                                             [(ngModel)]="aluno.cpf_responsavel" 
+                                             name="cpf_responsavel">
+                                             <app-message [control]="celular" error="required" 
+                                                     text="Informe o celular"></app-message>
+                                </p-inputMask>
+                          </div>
+
+                          <div class="ui-g-12 ui-md-2 ui-fluid">
+                            <label>Identidade</label>
+                              <input pInputText
+                                     [(ngModel)]="aluno.rg_responsavel" 
+                                     name="rg_responsavel"/>
+                          </div>
+  
+                          <div class="ui-g-12 ui-md-2 ui-fluid">
+                              <label>Telefone</label>
+                              <p-inputMask mask="(99) 9999-9999"
+                                      [(ngModel)]="aluno.telefone_responsavel" name="telefone_responsavel">
+                              </p-inputMask>
+                          </div>
+
+                          <div class="ui-g-12 ui-md-2 ui-fluid">
+                              <label>Celular</label><span style="color: brown; margin-left: 3.5px;" [hidden]="!aluno.possui_responsavel">*</span>
+                              <p-inputMask mask="(99)9 9999-9999" [required]="aluno.possui_responsavel"
+                                      [(ngModel)]="aluno.celular_responsavel" name="celular_responsavel">
+                              </p-inputMask>
+                          </div>
+
+                          <div class="ui-g-12 ui-md-4 ui-fluid">
+                              <label>E-mail</label>
+                                <input pInputText
+                                       [(ngModel)]="aluno.email_responsavel" 
+                                       name="email_responsavel"/>
+                            </div>
+
+                      </p-accordionTab>
+                  </p-accordion>
+              </div>
+  
+              <div class="ui-g-12">
+                  <button pButton type="submit" label="Salvar" [disabled]="f.invalid" 
+                          class="ui-button-success btn-margin"></button>
+                  <button pButton type="submit" label="Voltar" 
+                          routerLink="/alunos" class="ui-button-info"></button>
+              </div>
+          </form>
+    </div>
+  </p-card>
+  </div>
+  

@@ -1,11 +1,11 @@
-import { Pessoa } from './Pessoa';
+import { Pessoa } from './pessoa';
 
 export class Professor extends Pessoa {
     disciplinas_atuacao?: string;
     escolaridade?: string;
     filhos_zero_sete?: number;
     filhos_sete_treze?: number;
-    
+
     // Dados bancarios
     nome_banco?: string;
     agencia?: string;

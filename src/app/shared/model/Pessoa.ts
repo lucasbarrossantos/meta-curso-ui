@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { Endereco } from './Endereco';
+import { Endereco } from './endereco';
 
 export class Pessoa extends Endereco {
     codigo?: number;
@@ -14,6 +14,7 @@ export class Pessoa extends Endereco {
     pis_cartao_cidadao?: string;
     tipo?: number;
     genero?: string;
+    receberNotificacoes?: boolean;
     // Dados de contato
     email?: string;
     telefone?: string;
