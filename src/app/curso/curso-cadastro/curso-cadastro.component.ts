@@ -60,7 +60,7 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
 
     // Combos
     this.disciplinaService.listarTodas().subscribe((dados) => {
-      this.disciplinasCombo = dados.body.map(d => ({ label: d.nome, value: d.codigo }));
+      this.disciplinasCombo = dados.body.content.map(d => ({ label: d.nome, value: d.codigo }));
     });
     this.materialService.listarTodas().subscribe((dados) => {
       this.materiaisCombo = dados.body.map(m => ({ label: m.nome, value: m.codigo }));

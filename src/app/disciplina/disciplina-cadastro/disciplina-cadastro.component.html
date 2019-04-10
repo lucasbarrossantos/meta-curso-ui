@@ -1,0 +1,46 @@
+<div class="container-custom">
+    <p-card styleClass="ui-card-shadow">
+        <div class="ui-g">
+          <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)" class="ui-g-12 ui-md-12">
+              <div class="ui-g-12">
+                  <h1> {{editando ? 'Edição de disciplina' : 'Nova disciplina'}}</h1>
+              </div>
+  
+              <div class="ui-g-12 ui-md-6 ui-fluid">
+                  <label>Nome</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                  <input pInputText minlength="5" required
+                    ngModel name="nome" #nome="ngModel" [(ngModel)]="disciplina.nome"/>
+  
+                    <app-message [control]="nome" error="required"
+                      text="Informe o nome"></app-message>
+  
+                    <app-message [control]="nome" error="minlength" 
+                      text="Mínimo de {{ nome?.errors?.minlength?.requiredLength }} caracteres.">
+                    </app-message>
+              </div>
+
+              <div class="ui-g-12 ui-md-2 ui-fluid">
+                  <label>Ativo</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                  <p-dropdown [options]="ativo" required
+                              placeholder="Selecione"
+                              [(ngModel)]="disciplina.status" name="status">
+                  </p-dropdown>
+              </div>
+
+              <div class="ui-g-12 ui-md-2 ui-fluid">
+                  <label>Lingua estrangeira</label>
+                  <p-dropdown [options]="linguagens"
+                              placeholder="Selecione"
+                              [(ngModel)]="disciplina.lingua_estrangeira" name="lingua_estrangeira">
+                  </p-dropdown>
+              </div>
+  
+              <div class="ui-g-12">
+                  <button pButton type="submit" label="Salvar" [disabled]="f.invalid" class="ui-button-success btn-margin"></button>
+                  <button pButton type="submit" label="Voltar" routerLink="/disciplinas" class="ui-button-info"></button>
+              </div>
+          </form>
+    </div>
+  </p-card>
+  </div>
+  

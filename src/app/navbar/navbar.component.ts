@@ -29,7 +29,8 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Cadastros',
         items: [
-          { label: 'Professor', routerLink: '/professores'}
+          { label: 'Professor', routerLink: '/professores'},
+          { label: 'Disciplinas', routerLink: '/disciplinas'}
          ]
       },
       {
