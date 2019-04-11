@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
           { label: 'Interessados' },
           { label: 'Professores' },
         ]
-      },
+      }/* ,
       {
         label: 'Administração',
         items: [
@@ -57,7 +57,7 @@ export class NavbarComponent implements OnInit {
           { label: 'Papeis' },
           { label: 'Utilizadores' }
         ]
-      },
+      } */,
       {
         label: 'Ajuda',
         items: [
@@ -67,7 +67,7 @@ export class NavbarComponent implements OnInit {
           { label: 'Suporte', url: 'http://google.com' }
         ]
       },
-      { label: 'Login',  routerLink: '/login' }
+      /* { label: 'Login',  routerLink: '/login' } */
     ];
   }
 

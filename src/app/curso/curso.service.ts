@@ -19,7 +19,7 @@ export class CursoService {
     param = this.filtros(filtro, param);
 
     return this.http
-      .get<Curso[]>(`${this.resourceUrl}/cursos?resumo`, { params: param, observe: 'response' })
+      .get<Curso[]>(`${this.resourceUrl}/cursos?resumo&sort=nome,asc`, { params: param, observe: 'response' })
       .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
   }
 

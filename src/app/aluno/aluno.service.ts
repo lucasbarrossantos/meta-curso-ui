@@ -19,7 +19,7 @@ export class AlunoService {
     param = this.filtros(filtro, param);
 
     return this.http
-      .get<Aluno[]>(`${this.resourceUrl}/pessoas`, { params: param, observe: 'response' })
+      .get<Aluno[]>(`${this.resourceUrl}/pessoas?sort=nome,asc`, { params: param, observe: 'response' })
       .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
   }
 

@@ -19,7 +19,7 @@ export class ProfessorService {
     param = this.filtros(filtro, param);
 
     return this.http
-      .get<Professor[]>(`${this.resourceUrl}/pessoas`, { params: param, observe: 'response' })
+      .get<Professor[]>(`${this.resourceUrl}/pessoas?sort=nome,asc`, { params: param, observe: 'response' })
       .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
   }
 

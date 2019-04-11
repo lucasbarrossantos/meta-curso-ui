@@ -28,7 +28,7 @@ export class DisciplinaService {
     param = this.filtros(filtro, param);
 
     return this.http
-      .get<Disciplina[]>(`${this.resourceUrl}/disciplinas`, { params: param, observe: 'response' })
+      .get<Disciplina[]>(`${this.resourceUrl}/disciplinas?sort=nome,asc`, { params: param, observe: 'response' })
       .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
   }
 
