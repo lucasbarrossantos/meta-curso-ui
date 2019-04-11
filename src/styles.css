@@ -179,6 +179,11 @@ label {
     width: 150px;
 }
 
+.col-valor-tb-materiais {
+    width: 120px !important;
+    text-align: right;
+}
+
 /* ==== */
 
 .navbar {

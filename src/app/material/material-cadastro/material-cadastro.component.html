@@ -1,0 +1,65 @@
+<div class="container-custom">
+    <p-card styleClass="ui-card-shadow">
+        <div class="ui-g">
+          <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)" class="ui-g-12 ui-md-12">
+              <div class="ui-g-12">
+                  <h1> {{editando ? 'Edição de material' : 'Nova material'}}</h1>
+              </div>
+  
+              <div class="ui-g-12 ui-md-6 ui-fluid">
+                  <label>Nome</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                  <input pInputText minlength="5" required
+                    ngModel name="nome" #nome="ngModel" [(ngModel)]="material.nome"/>
+  
+                    <app-message [control]="nome" error="required" 
+                      text="Informe o nome"></app-message>
+  
+                    <app-message [control]="nome" error="minlength" 
+                      text="Mínimo de {{ nome?.errors?.minlength?.requiredLength }} caracteres.">
+                    </app-message>
+              </div>
+
+              <div class="ui-g-12 ui-md-2 ui-fluid">
+                  <label>Disponível</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                  <p-dropdown [options]="disponivel" required
+                              placeholder="Selecione"
+                              [(ngModel)]="material.disponivel" name="status">
+                  </p-dropdown>
+                </div>              
+
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                  <label>Valor</label>
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">R$</span>
+                    <input pInputText 
+                        currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+                        name="totalMaterial" [(ngModel)]="material.valor"/>
+                  </div>
+              </div>
+
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                  <label>Custo</label>
+                  <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">R$</span>
+                    <input pInputText 
+                        currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+                        name="totalMaterial" [(ngModel)]="material.custo"/>
+                  </div>
+              </div>
+
+              <div class="ui-g-12 ui-md-3 ui-fluid">
+                  <label>Estoque atual</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                  <input pInputText required
+                      currencyMask [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }"
+                      name="totalMaterial" [(ngModel)]="material.estoqueatual"/>
+              </div>
+  
+              <div class="ui-g-12">
+                  <button pButton type="submit" label="Salvar" [disabled]="f.invalid" class="ui-button-success btn-margin"></button>
+                  <button pButton type="submit" label="Voltar" routerLink="/materials" class="ui-button-info"></button>
+              </div>
+          </form>
+    </div>
+  </p-card>
+  </div>
+  

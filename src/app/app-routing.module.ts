@@ -18,6 +18,9 @@ export const routes: Routes = [
   // Disciplinas
   { path: 'disciplinas', loadChildren: '../app/disciplina/disciplina.module#DisciplinaModule' },
 
+  // Materiais
+  { path: 'materiais', loadChildren: './material/material.module#MaterialModule' },
+
   /* // Alternativas
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
   { path: '**', redirectTo: 'pagina-nao-encontrada' } */
