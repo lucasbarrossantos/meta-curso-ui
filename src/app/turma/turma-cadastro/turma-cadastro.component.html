@@ -1,0 +1,128 @@
+<div class="container-custom">
+  <p-card styleClass="ui-card-shadow">
+      <div class="ui-g">
+        <form #f="ngForm" autocomplete="off" class="ui-g-12 ui-md-12" (ngSubmit)="salvar(f)">
+            <div class="ui-g-12">
+                <h1> Nova turma </h1>
+            </div>
+            
+            <div class="ui-g-12">
+              <h3>campos obrigatórios
+                <span style="color: brown; margin-left: 3.5px;">*</span>
+              </h3>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label>Nome</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                <input pInputText minlength="5" required autofocus
+                  ngModel name="nome" #nome="ngModel" [(ngModel)]="turma.nome"/>
+
+                  <app-message [control]="nome" error="required" 
+                    text="Informe o nome"></app-message>
+
+                  <app-message [control]="nome" error="minlength" 
+                    text="Mínimo de {{ nome?.errors?.minlength?.requiredLength }} caracteres.">
+                  </app-message>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Nº de vagas</label>
+              <input pInputText
+                ngModel name="nvagas" #nome="ngModel" [(ngModel)]="turma.nvagas"/>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Curso</label><span style="color: brown; margin-left: 3.5px;">*</span>
+              <p-dropdown [options]="cursos" required
+                          [filter]="true"
+                          placeholder="Pesquisar curso"
+                          #curso="ngModel" ngModel name="curso" [(ngModel)]="turma.curso.codigo">
+              </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Ativo</label><span style="color: brown; margin-left: 3.5px;">*</span>
+              <p-dropdown [options]="ativo" required
+                          placeholder="Selecione"
+                          [(ngModel)]="turma.status" name="status">
+              </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Data de ínicio</label>
+                <p-calendar [showIcon]="true" [locale]="pt"
+                    name="datainicio" [(ngModel)]="turma.datainicio" 
+                    #datainicio="ngModel" ngModel
+                    dateFormat="dd/mm/yy">
+                </p-calendar>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Data de término</label>
+                <p-calendar [showIcon]="true" [locale]="pt"
+                    name="datatermino" [(ngModel)]="turma.datatermino" 
+                    #datatermino="ngModel" ngModel
+                    dateFormat="dd/mm/yy">
+                </p-calendar>
+            </div>
+
+            <div class="ui-g-12 ui-md-12 ui-fluid">
+              <label>Turno</label>
+              <textarea pInputTextarea [rows]="5" style="resize: none;"
+                ngModel name="turno" #nome="ngModel" [(ngModel)]="turma.turno">
+              </textarea>
+            </div>
+
+            <div class="ui-g-12">
+                <h3>Horários das aulas</h3>
+            </div>
+
+            <div class="ui-g-12 ui-md-3 ui-fluid">
+                <label>Disciplina</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                <p-dropdown [options]="disciplinas"
+                            optionLabel="label" 
+                            [filter]="true"
+                            placeholder="Pesquisar disciplina">
+                </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-3 ui-fluid">
+                <label>Professor</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                <p-dropdown [options]="professores"
+                            optionLabel="label" 
+                            [filter]="true"
+                            placeholder="Pesquisar professor">
+                </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+                <label>Data da aula</label>
+                  <p-calendar [showIcon]="true" [locale]="pt"
+                      dateFormat="dd/mm/yy">
+                  </p-calendar>
+            </div>
+
+            <div class="ui-g-12 ui-md-1 ui-fluid">
+                <label>Início</label>
+                <p-inputMask mask="99:99">
+                </p-inputMask>
+            </div>
+
+            <div class="ui-g-12 ui-md-1 ui-fluid">
+                <label>Fim</label>
+                <p-inputMask mask="99:99">
+                </p-inputMask>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid" style="margin-top: 22px; text-align: center;">
+                <button pButton type="button" label="Adicionar" class="ui-button-info"></button>
+            </div>
+
+            <div class="ui-g-12">
+                <button pButton type="submit" label="Salvar" [disabled]="f.invalid" class="ui-button-success btn-margin"></button>
+                <button pButton type="submit" label="Voltar" routerLink="/turmas" class="ui-button-info"></button>
+            </div>
+        </form>
+  </div>
+</p-card>
+</div>
