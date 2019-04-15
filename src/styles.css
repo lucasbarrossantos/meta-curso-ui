@@ -184,6 +184,11 @@ label {
     text-align: right;
 }
 
+.col-data-aula-tb-horario {
+    width: 130px !important;
+    text-align: center;
+}
+
 /* ==== */
 
 .navbar {

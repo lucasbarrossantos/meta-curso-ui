@@ -15,13 +15,8 @@ export class CursoService {
   constructor(private http: HttpClient) {}
 
   listarTodos(): Observable<any> {
-    return this.http.get<Curso[]>(`${this.resourceUrl}/cursos`, {
-      params: null, observe: 'response',
-      headers: new HttpHeaders({
-       'Content-Type':  'application/json',
-       Authorization: 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='
-     })
-    });
+    return this.http.get<Curso[]>(`${this.resourceUrl}/cursos?combo`, {
+      params: null, observe: 'response' });
   }
 
   pesquisar(filtro: CursoFilter): Observable<any> {

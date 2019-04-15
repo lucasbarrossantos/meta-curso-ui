@@ -14,6 +14,12 @@ export class ProfessorService {
 
   constructor(private http: HttpClient) {}
 
+  listarTodos(): Observable<any> {
+    return this.http.get<Professor[]>(`${this.resourceUrl}/pessoas`, {
+      params: null, observe: 'response'
+    }).pipe(map((res: any) => res ));
+  }
+
   pesquisar(filtro: ProfessorFilter): Observable<any> {
     let param = new HttpParams();
     param = this.filtros(filtro, param);

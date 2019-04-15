@@ -73,14 +73,18 @@
               </textarea>
             </div>
 
+            <!-- Fim Dados básicos -->
+            
+            <!-- Horários -->
             <div class="ui-g-12">
                 <h3>Horários das aulas</h3>
             </div>
+            <form #fh="ngForm" autocomplete="off" class="ui-g-12 ui-md-12" *ngIf="turma.codigo">
 
             <div class="ui-g-12 ui-md-3 ui-fluid">
                 <label>Disciplina</label><span style="color: brown; margin-left: 3.5px;">*</span>
-                <p-dropdown [options]="disciplinas"
-                            optionLabel="label" 
+                <p-dropdown [options]="disciplinas" required
+                            [(ngModel)]="horario.disciplina.codigo" name="disciplina"
                             [filter]="true"
                             placeholder="Pesquisar disciplina">
                 </p-dropdown>
@@ -88,35 +92,94 @@
 
             <div class="ui-g-12 ui-md-3 ui-fluid">
                 <label>Professor</label><span style="color: brown; margin-left: 3.5px;">*</span>
-                <p-dropdown [options]="professores"
-                            optionLabel="label" 
+                <p-dropdown [options]="professores" required
+                            [(ngModel)]="horario.professor.codigo" name="professor"
                             [filter]="true"
                             placeholder="Pesquisar professor">
                 </p-dropdown>
             </div>
 
             <div class="ui-g-12 ui-md-2 ui-fluid">
-                <label>Data da aula</label>
-                  <p-calendar [showIcon]="true" [locale]="pt"
+                <label>Data da aula</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                  <p-calendar [showIcon]="true" [locale]="pt" required
+                      [(ngModel)]="horario.dataAula" name="dataAula"
                       dateFormat="dd/mm/yy">
                   </p-calendar>
             </div>
 
             <div class="ui-g-12 ui-md-1 ui-fluid">
-                <label>Início</label>
-                <p-inputMask mask="99:99">
+                <label>Início</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                <p-inputMask mask="99:99" [(ngModel)]="horario.inicio" name="inicio" required>
                 </p-inputMask>
             </div>
 
             <div class="ui-g-12 ui-md-1 ui-fluid">
-                <label>Fim</label>
-                <p-inputMask mask="99:99">
+                <label>Fim</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                <p-inputMask mask="99:99" [(ngModel)]="horario.fim" name="fim" required>
                 </p-inputMask>
             </div>
 
-            <div class="ui-g-12 ui-md-2 ui-fluid" style="margin-top: 22px; text-align: center;">
-                <button pButton type="button" label="Adicionar" class="ui-button-info"></button>
+            <div class="ui-g-12 ui-md-1 ui-fluid" style="margin-top: 22px; text-align: center;">
+              <button pButton type="button" (click)="adicionarHorario(horario, fh)"
+                [disabled]="fh.invalid"
+                label="Adicionar" class="ui-button-info">
+              </button>
             </div>
+
+            <div class="ui-g-12 ui-md-1 ui-fluid" style="margin-top: 22px; text-align: center;">
+                <button pButton type="button"
+                  [disabled]="fh.invalid" (click)="limparFormHorario(fh)"
+                  label="Limpar" class="ui-button-info">
+                </button>
+              </div>
+          </form>
+
+            <!-- Fim Horários -->
+
+            <!-- Tabela de horários -->
+              <div class="ui-g-12" *ngIf="turma.codigo">
+                <br><br>
+                <p-table [value]="horarios" [responsive]="true"
+                        [rows]="6" [paginator]="true" #tabela>
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th >Disciplina</th>
+                      <th >Professor</th>
+                      <th class="col-data-aula-tb-horario">Data da aula</th>
+                      <th class="col-acoes">Início</th>
+                      <th class="col-acoes">Fim</th>
+                      <th class="col-acoes">Ações</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-horario>
+                    <tr>
+                      <td >{{ horario.nomeDisciplina }}</td>
+                      <td >{{ horario.nomeProfessor }}</td>
+                      <td class="col-data-aula-tb-horario">{{ horario.dataAula | date:'dd/MM/yyyy' }}</td>
+                      <td class="col-acoes">{{ horario.inicio }}</td>
+                      <td class="col-acoes">{{ horario.fim }}</td>
+                      <td class="col-acoes">
+                        <!-- <a pButton icon="pi pi-pencil" pTooltip="Editar"
+                          [routerLink]="[ '/horarios', horario.codigo ]"
+                          tooltipPosition="top" style="margin-right: 5px">
+                        </a> -->
+                        <a pButton icon="pi pi-trash" class="ui-button-danger"
+                                (click)="confirmExclusaoHorario(horario.codigo)"
+                                pTooltip="Excluir" tooltipPosition="top">
+                        </a>  
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage" let-columns>
+                      <tr>
+                          <td [attr.colspan]="6">
+                              Nenhum registro encontrado.
+                          </td>
+                      </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            <!-- Fim Tabela de horários -->
 
             <div class="ui-g-12">
                 <button pButton type="submit" label="Salvar" [disabled]="f.invalid" class="ui-button-success btn-margin"></button>

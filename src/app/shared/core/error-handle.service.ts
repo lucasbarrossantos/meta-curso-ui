@@ -18,13 +18,7 @@ export class ErrorHandleService {
       console.log('Error', errorResponse);
     }
 
-    this.toasty.error({
-      title: 'Erro na operação.',
-      msg: mensagem,
-      showClose: true,
-      timeout: 5000
-    });
-
+    this.toasty.error( mensagem );
   }
 
 }

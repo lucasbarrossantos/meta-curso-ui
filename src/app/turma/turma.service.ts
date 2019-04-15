@@ -1,3 +1,4 @@
+import { Horario } from './../shared/model/horario.model';
 import { Turma } from './../shared/model/turma.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -23,9 +24,20 @@ export class TurmaService {
       .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
   }
 
+  horariosDaTurma(turmaId: number): Observable<any> {
+    return this.http
+      .get<Horario>(`${this.resourceUrl}/turmas/horarios-da-turma/${turmaId}`,
+        {observe: 'response' }).pipe(map((res: any) => res));
+  }
+
   salvar(turma: Turma): Observable<any> {
     return this.http.post<Turma>(`${this.resourceUrl}/turmas`, turma , {
       params: null, observe: 'response' });
+  }
+
+  adicionarHorario(horario: Horario): Observable<any> {
+    return this.http.post<Horario>(`${this.resourceUrl}/turmas/adicionar-horario`, horario , {
+      params: null, observe: 'response' }).pipe(map((res: any) => res ));
   }
 
   atualizar(turma: Turma): Observable<any> {
@@ -39,6 +51,11 @@ export class TurmaService {
     {
       observe: 'response'
     });
+  }
+
+  excluirDisciplina(turmaId: number, horarioId: number) {
+    return this.http.delete<any>(`${this.resourceUrl}/turmas/${turmaId}/remover-horario/${horarioId}`,
+    { observe: 'response' });
   }
 
   buscarPorCodigo(id: number): Observable<any> {
@@ -73,8 +90,6 @@ export class TurmaService {
           moment(res.body.datatermino, 'YYYY-MM-DD').toDate() : null;
       }
     }
-
-    
     return res;
   }
 
