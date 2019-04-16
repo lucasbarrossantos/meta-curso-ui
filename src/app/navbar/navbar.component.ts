@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
           { label: 'Professor', routerLink: '/professores'},
           { label: 'Disciplinas', routerLink: '/disciplinas'},
           { label: 'Materiais', routerLink: '/materiais'},
-          { label: 'Turmas', routerLink: '/turmas/nova'}
+          { label: 'Turmas', routerLink: '/turmas'}
          ]
       },
       {

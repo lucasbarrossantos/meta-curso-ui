@@ -14,9 +14,10 @@ import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/components/calendar/calendar';
 import { SharedModule } from '../shared/shared.module';
 import { DropdownModule } from 'primeng/components/dropdown/dropdown';
+import { TurmaPesquisaComponent } from './turma-pesquisa/turma-pesquisa.component';
 
 @NgModule({
-  declarations: [TurmaCadastroComponent],
+  declarations: [TurmaCadastroComponent, TurmaPesquisaComponent],
   imports: [
     CommonModule,
     DropdownModule,

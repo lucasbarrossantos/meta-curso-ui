@@ -114,8 +114,8 @@
             </div>
 
             <div class="ui-g-12 ui-md-1 ui-fluid">
-                <label>Fim</label><span style="color: brown; margin-left: 3.5px;">*</span>
-                <p-inputMask mask="99:99" [(ngModel)]="horario.fim" name="fim" required>
+                <label>Fim {{ horario.fim?.replace(":", "").length }} </label><span style="color: brown; margin-left: 3.5px;">*</span>
+                <p-inputMask mask="99:99" minlength="5" [(ngModel)]="horario.fim" name="fim" required>
                 </p-inputMask>
             </div>
 

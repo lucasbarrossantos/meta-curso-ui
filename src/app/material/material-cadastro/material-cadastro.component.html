@@ -56,7 +56,8 @@
   
               <div class="ui-g-12">
                   <button pButton type="submit" label="Salvar" [disabled]="f.invalid" class="ui-button-success btn-margin"></button>
-                  <button pButton type="submit" label="Voltar" routerLink="/materials" class="ui-button-info"></button>
+                  <a pButton (click)="voltar()" type="button" label="Voltar" 
+                    routerLink="/materials" class="ui-button-info"></a>
               </div>
           </form>
     </div>

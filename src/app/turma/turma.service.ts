@@ -20,7 +20,7 @@ export class TurmaService {
     param = this.filtros(filtro, param);
 
     return this.http
-      .get<Turma[]>(`${this.resourceUrl}/turmas?sort=nome,asc`, { params: param, observe: 'response' })
+      .get<Turma[]>(`${this.resourceUrl}/turmas?resumo&sort=nome,asc`, { params: param, observe: 'response' })
       .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
   }
 
@@ -72,6 +72,30 @@ export class TurmaService {
     // Parametros de filtragens
     if (filtro.nome) {
       param = param.set('nome', filtro.nome);
+    }
+
+    if (filtro.nomeCurso) {
+      param = param.set('nomeCurso', filtro.nomeCurso);
+    }
+
+    if (filtro.status) {
+      param = param.set('status', filtro.status);
+    }
+
+    if (filtro.inicioDe) {
+      param = param.set('inicioDe', filtro.inicioDe);
+    }
+
+    if (filtro.inicioAte) {
+      param = param.set('inicioAte', filtro.inicioAte);
+    }
+
+    if (filtro.terminoDe) {
+      param = param.set('terminoDe', filtro.terminoDe);
+    }
+
+    if (filtro.terminoAte) {
+      param = param.set('terminoAte', filtro.terminoAte);
     }
 
     return param;

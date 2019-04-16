@@ -189,6 +189,16 @@ label {
     text-align: center;
 }
 
+.col-datas-tb-turma {
+    text-align: center;
+    width: 110px !important;
+}
+
+.col-vgs-disponiveis-tb-turma {
+    text-align: center;
+    width: 140px !important;
+}
+
 /* ==== */
 
 .navbar {

@@ -1,0 +1,119 @@
+<div class="container-custom">
+  <p-card styleClass="ui-card-shadow">
+    <div class="ui-g">       
+        <form autocomplete="off" (ngSubmit)="pesquisar()" class="ui-g-12 ui-md-12">
+          <div class="ui-g-12 ui-md-12">
+              <h1>Turmas</h1>
+              <a pButton label="Adicionar" routerLink="nova" class="ui-button-success" 
+                  style="float: right"> </a>
+          </div>
+
+          <div class="ui-g-12 ui-md-5 ui-fluid">
+            <label> Nome </label>
+            <input type="text" pInputText name="nome" [(ngModel)]="filtro.nome" />
+          </div>
+
+          <div class="ui-g-12 ui-md-5 ui-fluid">
+              <label> Curso </label>
+              <input type="text" pInputText name="nomeCurso" [(ngModel)]="filtro.nomeCurso" />
+          </div>
+
+          <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Ativo</label>
+              <p-dropdown [options]="ativo"
+                          placeholder="Selecione"
+                          [(ngModel)]="filtro.status" name="status">
+              </p-dropdown>
+            </div>
+
+            <div class="ui-g-12 ui-md-12">
+                <label style="display: block;">Início do curso</label>
+                <p-calendar [showIcon]="true" [locale]="pt" name="inicioDe"
+                    dateFormat="dd/mm/yy" [(ngModel)]="filtro.inicioDe">
+                </p-calendar>
+        
+                <label style="margin-left: 5px; margin-right: 5px;">Até</label>
+                
+                <p-calendar [showIcon]="true" [(ngModel)]="filtro.inicioAte"
+                    dateFormat="dd/mm/yy" name="inicioAte" [locale]="pt">
+                </p-calendar>
+            </div>
+
+            <div class="ui-g-12 ui-md-12">
+                <label style="display: block;">Término do curso</label>
+                <p-calendar [showIcon]="true" [locale]="pt" name="terminoDe"
+                    dateFormat="dd/mm/yy" [(ngModel)]="filtro.terminoDe">
+                </p-calendar>
+        
+                <label style="margin-left: 5px; margin-right: 5px;">Até</label>
+                
+                <p-calendar [showIcon]="true" [(ngModel)]="filtro.terminoAte"
+                    dateFormat="dd/mm/yy" name="terminoAte" [locale]="pt">
+                </p-calendar>
+            </div>
+
+          <div class="ui-g-12">
+              <button pButton type="submit" label="Pesquisar" class="ui-button-info"></button>
+              <a pButton label="Limpar" (click)="limparFiltros(filtro)" 
+                 class="ui-button-info" style="margin-left: 5px"> </a>
+          </div>
+       </form>
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-table [value]="turmas" [responsive]="true"
+                [rows]="filtro.itensPorPagina" [paginator]="true"
+                [lazy]="true" [totalRecords]="totalRegistros" 
+                (onLazyLoad)="onMudarPagina($event)" #tabela>
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="col-nome-tb-codigo">#</th>
+              <th >Nome</th>
+              <th class="">Curso</th>
+              <th class="col-datas-tb-turma">Início</th>
+              <th class="col-datas-tb-turma">Término</th>
+              <th class="col-acoes">Ativa</th>
+              <th class="col-acoes">Nº vagas</th>
+              <th class="col-vgs-disponiveis-tb-turma">Vgs disponíveis</th>
+              <th class="col-acoes">Ações</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-turma>
+            <tr>
+              <td class="col-nome-tb-codigo">{{ turma.codigo }}</td>
+              <td >{{ turma.nome }}</td>
+              <td >{{ turma.nomeCurso }}</td>
+              <td class="col-datas-tb-turma">{{ turma.datainicio | date:'dd/MM/yyyy' }}</td>
+              <td class="col-datas-tb-turma">{{ turma.datatermino | date:'dd/MM/yyyy' }}</td>
+              <td class="col-acoes">
+                  <samp [ngClass]="turma.status == 0 ? 'badge badge-success' : 'badge badge-danger'">
+                      {{ turma.status == 0 ? 'Sim' : 'Não' }}
+                  </samp>
+              </td>
+              <td class="col-acoes">{{ turma.nvagas }}</td>
+              <td class="col-vgs-disponiveis-tb-turma">{{ turma.vagasdisponiveis }}</td>            
+              <td class="col-acoes">
+                <a pButton icon="pi pi-pencil" pTooltip="Editar"
+                  [routerLink]="[ '/turmas', turma.codigo ]"
+                  tooltipPosition="top" style="margin-right: 5px">
+                </a>
+                <button pButton icon="pi pi-trash" class="ui-button-danger"
+                        (click)="confirmExclusao(turma.codigo, turma.nome)"
+                        pTooltip="Excluir" tooltipPosition="top">
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                  <td [attr.colspan]="9">
+                      Nenhum registro encontrado.
+                  </td>
+              </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  </p-card>
+</div>

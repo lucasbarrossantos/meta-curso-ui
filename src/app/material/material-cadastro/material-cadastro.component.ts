@@ -66,4 +66,8 @@ export class MaterialCadastroComponent implements OnInit {
     }, (error) => this.errorHandle.handle(error));
   }
 
+  voltar() {
+    window.history.back();
+  }
+
 }

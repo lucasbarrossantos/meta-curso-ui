@@ -78,7 +78,10 @@ export class TurmaCadastroComponent implements OnInit {
     }, (error) => console.log('error => ', error));
     this.carregarDisciplinas();
     this.carregarProfessores();
-    this.caregarHorarios(this.turma.codigo);
+
+    if (this.turma.codigo) {
+      this.caregarHorarios(this.turma.codigo);
+    }
   }
 
   get editando() {
@@ -94,16 +97,16 @@ export class TurmaCadastroComponent implements OnInit {
   }
 
   adicionarTurma(form: FormControl) {
-    this.turmaService.salvar(this.turma).subscribe(() => {
+    this.turmaService.salvar(this.turma).subscribe(( turma ) => {
       this.toasty.success('Turma salva com sucesso!');
-      this.router.navigate(['/turmas', this.turma.codigo]);
+      this.router.navigate(['/turmas', turma.body.codigo]);
     }, (error) => this.errorHandle.handle(error));
   }
 
   atualizarTurma(form: FormControl) {
-    this.turmaService.atualizar(this.turma).subscribe(() => {
+    this.turmaService.atualizar(this.turma).subscribe(( turma ) => {
       this.toasty.success('Turma atualizada com sucesso!');
-      this.router.navigate(['/turmas', this.turma.codigo]);
+      this.router.navigate(['/turmas', turma.body.codigo]);
     }, (error) => this.errorHandle.handle(error));
   }
 

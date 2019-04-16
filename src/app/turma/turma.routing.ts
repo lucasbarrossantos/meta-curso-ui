@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { Routes, ActivatedRouteSnapshot, Resolve, RouterModule } from '@angular/router';
 import { Injectable, NgModule } from '@angular/core';
+import { TurmaPesquisaComponent } from './turma-pesquisa/turma-pesquisa.component';
 
 @Injectable({ providedIn: 'root' })
 export class TurmaResolve implements Resolve<Turma> {
@@ -24,10 +25,10 @@ export class TurmaResolve implements Resolve<Turma> {
 }
 
 export const routes: Routes = [
-    /* {
+    {
         path: '',
         component: TurmaPesquisaComponent,
-    }, */
+    },
     {
       path: 'nova',
       component: TurmaCadastroComponent,
