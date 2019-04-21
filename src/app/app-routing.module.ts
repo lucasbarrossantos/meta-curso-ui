@@ -24,6 +24,9 @@ export const routes: Routes = [
   // Turmas
   { path: 'turmas', loadChildren: './turma/turma.module#TurmaModule' },
 
+  // Eventos
+  { path: 'eventos', loadChildren: './evento/evento.module#EventoModule' },
+
   /* // Alternativas
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent },
   { path: '**', redirectTo: 'pagina-nao-encontrada' } */

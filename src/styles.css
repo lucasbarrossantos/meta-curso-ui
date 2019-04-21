@@ -199,6 +199,15 @@ label {
     width: 140px !important;
 }
 
+.col-data-inicio-tb-evento {
+    text-align: center;
+    width: 140px;
+}
+
+.col-horario-tb-evento {
+    text-align: center;
+    width: 140px;
+}
 /* ==== */
 
 .navbar {

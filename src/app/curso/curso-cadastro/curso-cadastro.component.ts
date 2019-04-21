@@ -58,14 +58,9 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.title.setTitle('Novo curso');
 
-    // Combos
-    this.disciplinaService.listarTodas().subscribe((dados) => {
-      this.disciplinasCombo = dados.body.content.map(d => ({ label: d.nome, value: d.codigo }));
-    });
-    this.materialService.listarTodas().subscribe((dados) => {
-      this.materiaisCombo = dados.body.map(m => ({ label: m.nome, value: m.codigo }));
-    });
-    // ...
+    if (this.curso.codigo) {
+      this.carregarCombos();
+    }
 
     this.route.data.subscribe(({ curso }) => {
       console.log('curso >>> ', curso);
@@ -78,6 +73,17 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
     });
     this.subDisc = EventEmitterService.get('DisciplinaListModification').subscribe( data => {} );
     this.subMate = EventEmitterService.get('MaterialListModification').subscribe( data => {} );
+  }
+
+  carregarCombos() {
+      // Combos
+      this.disciplinaService.listarTodas().subscribe((dados) => {
+        this.disciplinasCombo = dados.body.content.map(d => ({ label: d.nome, value: d.codigo }));
+      });
+      this.materialService.listarTodas().subscribe((dados) => {
+        this.materiaisCombo = dados.body.map(m => ({ label: m.nome, value: m.codigo }));
+      });
+      // ...
   }
 
   ngOnDestroy() {

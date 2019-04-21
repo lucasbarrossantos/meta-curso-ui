@@ -1,0 +1,71 @@
+<div class="container-custom">
+  <p-card styleClass="ui-card-shadow">
+    <div class="ui-g">       
+        <form autocomplete="off" (ngSubmit)="pesquisar()" class="ui-g-12 ui-md-12">
+          <div class="ui-g-12 ui-md-12 ui-fluid">
+              <h1>Eventos</h1>
+          </div>
+
+          <div class="ui-g-12 ui-md-12 ui-fluid">
+            <label> Descrição </label>
+            <input type="text" pInputText name="nome" [(ngModel)]="filtro.descricao" />
+          </div>
+
+          <div class="ui-g-12">
+              <button pButton type="submit" label="Pesquisar" class="ui-button-info"></button>
+              <a pButton label="Adicionar" routerLink="novo" class="ui-button-success"
+                  style="float: right"> </a>
+          </div>
+       </form>
+
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-table [value]="eventos" [responsive]="true"
+                [rows]="filtro.itensPorPagina" [paginator]="true"
+                [lazy]="true" [totalRecords]="totalRegistros" 
+                (onLazyLoad)="onMudarPagina($event)" #tabela>
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="col-nome-tb-codigo">#</th>
+              <th >Descrição</th>
+              <th class="col-data-inicio-tb-evento">Data de Início</th>
+              <th class="col-horario-tb-evento">Horário</th>
+              <th class="col-acoes">Ações</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-evento>
+            <tr>
+              <td class="col-nome-tb-codigo">{{ evento.codigo }}</td>
+              <td >{{ evento.descricao }}</td>
+              <td class="col-data-inicio-tb-evento">
+                  <span [ngClass]="{'badge badge-danger': eventoVencido(evento.dataInicio)}">
+                    {{ evento.dataInicio | date:'dd/MM/yyyy' }}
+                  </span>
+              </td>
+              <td class="col-horario-tb-evento">{{ evento.horarioInicio }}</td>
+            
+              <td class="col-acoes">
+                <a pButton icon="pi pi-pencil" pTooltip="Editar"
+                  [routerLink]="[ '/eventos', evento.codigo ]"
+                  tooltipPosition="top" style="margin-right: 5px">
+                </a>
+                <button pButton icon="pi pi-trash" class="ui-button-danger"
+                        (click)="confirmExclusao(evento.codigo, evento.descricao)"
+                        pTooltip="Excluir" tooltipPosition="top">
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                  <td [attr.colspan]="5">
+                      Nenhum registro encontrado.
+                  </td>
+              </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  </p-card>
+</div>

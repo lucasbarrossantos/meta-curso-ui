@@ -23,7 +23,7 @@ export class DisciplinaCadastroComponent implements OnInit {
   linguagens = [
     { label: 'Selecione', value: null },
     { label: 'Espanhol', value: 1 },
-    { label: 'Inglês', value: '0' },
+    { label: 'Inglês', value: 0 },
   ];
 
   constructor(

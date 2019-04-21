@@ -1,0 +1,49 @@
+<div class="container-custom">
+  <p-card styleClass="ui-card-shadow">
+      <div class="ui-g">
+        <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)" class="ui-g-12 ui-md-12">
+            <div class="ui-g-12">
+                <h1> {{editando ? 'Edição de evento' : 'Novo evento'}}</h1>
+            </div>
+
+            <div class="ui-g-12">
+                <h3>campos obrigatórios
+                  <span style="color: brown; margin-left: 3.5px;">*</span>
+                </h3>
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-fluid">
+                <label>Nome</label>
+                <input pInputText minlength="5" required autofocus
+                  ngModel name="descricao" #nome="ngModel" [(ngModel)]="evento.descricao"/>
+
+                  <app-message [control]="nome" error="required"
+                    text="Informe o nome"></app-message>
+
+                  <app-message [control]="nome" error="minlength" 
+                    text="Mínimo de {{ nome?.errors?.minlength?.requiredLength }} caracteres.">
+                  </app-message>
+            </div>
+
+            <div class="ui-g-12 ui-md-2 ui-fluid">
+              <label>Data do evento</label><span style="color: brown; margin-left: 3.5px;">*</span>
+                <p-calendar [showIcon]="true" [locale]="pt" required
+                    [(ngModel)]="evento.dataInicio" name="dataInicio"
+                    dateFormat="dd/mm/yy">
+                </p-calendar>
+            </div>
+
+            <div class="ui-g-12 ui-md-1 ui-fluid">
+              <label>Início</label><span style="color: brown; margin-left: 3.5px;">*</span>
+              <p-inputMask mask="99:99" [(ngModel)]="evento.horarioInicio" name="horarioInicio" required>
+              </p-inputMask>
+            </div>
+
+            <div class="ui-g-12">
+                <button pButton type="submit" label="Salvar" [disabled]="f.invalid" class="ui-button-success btn-margin"></button>
+                <button pButton type="submit" label="Voltar" routerLink="/eventos" class="ui-button-info"></button>
+            </div>
+        </form>
+  </div>
+</p-card>
+</div>
