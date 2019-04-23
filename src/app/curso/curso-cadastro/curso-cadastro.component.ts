@@ -63,7 +63,6 @@ export class CursoCadastroComponent implements OnInit, OnDestroy {
     }
 
     this.route.data.subscribe(({ curso }) => {
-      console.log('curso >>> ', curso);
       this.curso = curso;
 
       if (curso.codigo) {

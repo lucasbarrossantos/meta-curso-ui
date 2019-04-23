@@ -1,5 +1,5 @@
-import { CategoriaFilter } from './../shared/model/filtros/categoria.filter';
-import { Categoria } from '../shared/model/categoria.model';
+import { EmpresaFilter } from './../shared/model/filtros/empresa.filter';
+import { Empresa } from '../shared/model/empresa.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
@@ -8,46 +8,41 @@ import { map } from 'rxjs/internal/operators/map';
 @Injectable({
   providedIn: 'root'
 })
-export class CategoriaService {
+export class EmpresaService {
   public resourceUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
-  listarTodas(): Observable<any> {
-    return this.http.get<Categoria[]>(`${this.resourceUrl}/categorias`, {
-      params: null, observe: 'response' });
-  }
-
-  pesquisar(filtro: CategoriaFilter): Observable<any> {
+  pesquisar(filtro: EmpresaFilter): Observable<any> {
     let param = new HttpParams();
     param = this.filtros(filtro, param);
 
     return this.http
-      .get<Categoria[]>(`${this.resourceUrl}/categorias`, { params: param, observe: 'response' })
+      .get<Empresa[]>(`${this.resourceUrl}/empresas`, { params: param, observe: 'response' })
       .pipe(map((res: any) => this.convertDateArrayFromServer(res)));
   }
 
   excluir(codigo: number) {
-    return this.http.delete<any>(`${this.resourceUrl}/categorias/${codigo}`,
+    return this.http.delete<any>(`${this.resourceUrl}/empresas/${codigo}`,
     {
       observe: 'response'
     });
   }
 
-  salvar(categoria: Categoria): Observable<any> {
-    return this.http.post<Categoria>(`${this.resourceUrl}/categorias`, categoria , {
+  salvar(empresa: Empresa): Observable<any> {
+    return this.http.post<Empresa>(`${this.resourceUrl}/empresas`, empresa , {
       params: null, observe: 'response' });
   }
 
-  atualizar(categoria: Categoria): Observable<any> {
+  atualizar(empresa: Empresa): Observable<any> {
     return this.http
-        .put<Categoria>(`${this.resourceUrl}/categorias/${categoria.codigo}`, categoria,
+        .put<Empresa>(`${this.resourceUrl}/empresas/${empresa.codigo}`, empresa,
         { observe: 'response' });
   }
 
   buscarPorCodigo(id: number): Observable<any> {
     return this.http
-      .get<Categoria>(`${this.resourceUrl}/categorias/${id}`,
+      .get<Empresa>(`${this.resourceUrl}/empresas/${id}`,
         {observe: 'response' }).pipe(map((res: any) => res));
   }
 
@@ -68,7 +63,7 @@ export class CategoriaService {
     let resultado = {};
     if (res.body) {
       resultado = {
-        categorias: res.body.content,
+        empresas: res.body.content,
         total: res.body.totalElements
       };
     }
